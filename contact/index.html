@@ -12,32 +12,32 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact Us</title>
-  <link rel="icon" href="https://mayjuun.com/images/favicon.ico">
+  <link rel="icon" href="https://www.mayjuun.com/images/favicon.ico">
 
   <!-- Twitter Bootstrs CSS -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/bootstrap/bootstrap.min.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/bootstrap/bootstrap.min.css">
   <!-- Ionicons Fonts Css -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/ionicons/ionicons.min.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/ionicons/ionicons.min.css">
   <!-- animate css -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/animate-css/animate.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/animate-css/animate.css">
   <!-- Hero area slider css-->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/slider/slider.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/slider/slider.css">
   <!-- slick slider -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/slick/slick.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/slick/slick.css">
   <!-- Fancybox -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/facncybox/jquery.fancybox.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/facncybox/jquery.fancybox.css">
   <!-- hover -->
-  <link rel="stylesheet" href="https://mayjuun.com/plugins/hover/hover-min.css">
+  <link rel="stylesheet" href="https://www.mayjuun.com/plugins/hover/hover-min.css">
   <!-- template main css file -->
   
-  <link rel="stylesheet" href="https://mayjuun.com/css/style.min.css" integrity="" media="screen">
+  <link rel="stylesheet" href="https://www.mayjuun.com/css/style.min.css" integrity="" media="screen">
 </head><body><section class="top-bar animated-header">
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                    <a class="navbar-brand" href="https://mayjuun.com/">
-                        <img src="https://mayjuun.com/images/logo.png" alt="logo">
+                    <a class="navbar-brand" href="https://www.mayjuun.com/">
+                        <img src="https://www.mayjuun.com/images/logo.png" alt="logo">
                     </a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation"
                         aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
@@ -48,19 +48,19 @@
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item">
                                 <a class="nav-link"
-                                    href="https://mayjuun.com/">Home</a>
+                                    href="https://www.mayjuun.com/">Home</a>
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link" href="https://mayjuun.com/about">About</a>
+                                <a class="nav-link" href="https://www.mayjuun.com/about">About</a>
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link" href="https://mayjuun.com/service">Services</a>
+                                <a class="nav-link" href="https://www.mayjuun.com/service">Services</a>
                             </li>
                             
                             <li class="nav-item">
-                                <a class="nav-link" href="https://mayjuun.com/contact">Contact</a>
+                                <a class="nav-link" href="https://www.mayjuun.com/contact">Contact</a>
                             </li>
                             
                     </div>
@@ -79,7 +79,7 @@
                     <h2>Contact Us</h2>
                     <ol class="breadcrumb list-inline text-center">
                         <li class="list-inline-item">
-                            <a href="https://mayjuun.com/">
+                            <a href="https://www.mayjuun.com/">
                                 <i class="ion-ios-home"></i>
                                 Home &nbsp; &nbsp;/
                             </a>
@@ -106,41 +106,27 @@
                         data-wow-duration="500ms" data-wow-delay=".5s">Let us know about you and your needs/interests. We&#39;d love to help
 </p>
                     <div class="contact-form">
-                        <form id="contact-form" method="#" action="#" role="form">
-
+                        <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8"
+                            action="https://formspree.io/info@mayjuun.com" method="post">
                             <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".6s">
-                                <input type="text" placeholder="Your Name" class="form-control" name="name" id="name">
+                                <fieldset id="fs-frm-inputs">
+                                    
+                                    <input type="text" name="name" id="full-name" placeholder="Your Name" required="">
+                                    
+                                    <br>
+                                    <input type="email" name="_replyto" id="email-address" placeholder="Your Email"
+                                        required="">
+                                    
+                                    <br>
+                                    <textarea rows="5" name="message" id="message" placeholder="Message"
+                                        required=""></textarea>
+                                    <input type="hidden" name="_subject" id="email-subject"
+                                        value="Contact Form Submission">
+                                </fieldset>
                             </div>
-
-                            <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay=".8s">
-                                <input type="email" placeholder="Your Email" class="form-control" name="email"
-                                    id="email">
-                            </div>
-
-                            <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay="1s">
-                                <input type="text" placeholder="Subject" class="form-control" name="subject"
-                                    id="subject">
-                            </div>
-
-                            <div class="form-group wow fadeInDown" data-wow-duration="500ms" data-wow-delay="1.2s">
-                                <textarea rows="6" placeholder="Message" class="form-control" name="message"
-                                    id="message"></textarea>
-                            </div>
-
-                            <div id="success" class="success">
-                                Thank you. An email has been sent to MayJuun. We will contact you shortly
-                            </div>
-
-                            <div id="error" class="error">
-                                Sorry, an error occurred. Please try again later.
-                            </div>
-
-                            <div id="submit" class="wow fadeInDown" data-wow-duration="500ms" data-wow-delay="1.4s">
-                                <button type="submit" id="contact-submit"
-                                    class="btn btn-default btn-send hvr-bounce-to-right" value="Send Message">Send
-                                    Message</button>
-                            </div>
+                            <input type="submit" value="Submit">
                         </form>
+                        
                     </div>
                 </div>
             </div>
@@ -176,6 +162,10 @@
                 <!-- Social Media -->
                 <ul class="social text-center text-md-right text-lg-right">
                     
+                    <li><a href="#"><i class="ion-social-linkedin"></i></a></li>
+                    
+                    <li><a href="#"><i class="ion-social-twitter"></i></a></li>
+                    
                 </ul>
             </div>
         </div>
@@ -184,23 +174,23 @@
 <!-- footer section end -->
 
 <!-- jquery -->
-<script src="https://mayjuun.com/plugins/jQurey/jquery.min.js"></script>
+<script src="https://www.mayjuun.com/plugins/jQurey/jquery.min.js"></script>
 <!-- Form Validation -->
-<script src="https://mayjuun.com/plugins/form-validation/jquery.form.js"></script>
-<script src="https://mayjuun.com/plugins/form-validation/jquery.validate.min.js"></script>
+<script src="https://www.mayjuun.com/plugins/form-validation/jquery.form.js"></script>
+<script src="https://www.mayjuun.com/plugins/form-validation/jquery.validate.min.js"></script>
 <!-- slick slider -->
-<script src="https://mayjuun.com/plugins/slick/slick.min.js"></script>
+<script src="https://www.mayjuun.com/plugins/slick/slick.min.js"></script>
 <!-- bootstrap js -->
-<script src="https://mayjuun.com/plugins/bootstrap/bootstrap.min.js"></script>
+<script src="https://www.mayjuun.com/plugins/bootstrap/bootstrap.min.js"></script>
 <!-- wow js -->
-<script src="https://mayjuun.com/plugins/wow-js/wow.min.js"></script>
+<script src="https://www.mayjuun.com/plugins/wow-js/wow.min.js"></script>
 <!-- slider js -->
-<script src="https://mayjuun.com/plugins/slider/slider.js"></script>
+<script src="https://www.mayjuun.com/plugins/slider/slider.js"></script>
 <!-- Fancybox -->
-<script src="https://mayjuun.com/plugins/facncybox/jquery.fancybox.js"></script>
+<script src="https://www.mayjuun.com/plugins/facncybox/jquery.fancybox.js"></script>
 <!-- template main js -->
 
-<script src="https://mayjuun.com/js/script.min.js"></script>
+<script src="https://www.mayjuun.com/js/script.min.js"></script>
 <!-- google analitycs -->
 <script>
     (function (i, s, o, g, r, a, m) {
@@ -214,7 +204,7 @@
         a.src = g;
         m.parentNode.insertBefore(a, m)
     })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', 'UA-50100304-2', 'auto');
+    ga('create', 'Your ID', 'auto');
     ga('send', 'pageview');
 </script></body>
 </html>
