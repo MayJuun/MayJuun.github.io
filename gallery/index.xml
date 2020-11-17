@@ -5,10 +5,6 @@
     <link>https://mayjuun.com/gallery/</link>
     <description>Recent content in Gallery on MayJuun</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language>
-    
-	<atom:link href="https://mayjuun.com/gallery/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <language>en-us</language><atom:link href="https://mayjuun.com/gallery/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

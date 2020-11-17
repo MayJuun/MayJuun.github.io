@@ -6,9 +6,15 @@
     <description>Recent content on MayJuun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    
-	<atom:link href="https://mayjuun.com/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Tue, 17 Nov 2020 04:16:40 +0000</lastBuildDate><atom:link href="https://mayjuun.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Symptom Tracker</title>
+      <link>https://mayjuun.com/portfolio/symptom-tracker/</link>
+      <pubDate>Tue, 17 Nov 2020 04:16:40 +0000</pubDate>
+      
+      <guid>https://mayjuun.com/portfolio/symptom-tracker/</guid>
+      <description>AMIA Symptom Tracker This was the demo application used for live-coding in the 4-hour Flutter workshop given at AMIA&amp;rsquo;s 2020 Virtual Clinical Informatics Conference. A total of 6 informaticians hosted this workshop.</description>
+    </item>
     
   </channel>
 </rss>

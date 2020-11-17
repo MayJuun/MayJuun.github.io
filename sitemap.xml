@@ -3,6 +3,21 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://mayjuun.com/</loc>
+    <lastmod>2020-11-17T04:16:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/portfolio/</loc>
+    <lastmod>2020-11-17T04:16:40+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/portfolio/symptom-tracker/</loc>
+    <lastmod>2020-11-17T04:16:40+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://mayjuun.com/about/</loc>
   </url>
   
@@ -20,10 +35,6 @@
   
   <url>
     <loc>https://mayjuun.com/gallery/</loc>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/</loc>
   </url>
   
   <url>
