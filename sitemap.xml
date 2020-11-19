@@ -3,12 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://mayjuun.com/portfolio/</loc>
-    <lastmod>2020-11-19T05:07:05+00:00</lastmod>
+    <loc>https://mayjuun.com/blog/1-meta-post/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/howto/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/hugo/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/informatics/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
   </url>
   
   <url>
     <loc>https://mayjuun.com/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/meta/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/blog/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/tags/website/</loc>
+    <lastmod>2020-11-19T12:43:11+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://mayjuun.com/portfolio/</loc>
     <lastmod>2020-11-19T05:07:05+00:00</lastmod>
   </url>
   
@@ -20,46 +60,6 @@
   <url>
     <loc>https://mayjuun.com/portfolio/symptom-tracker/</loc>
     <lastmod>2020-11-19T04:49:49+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/blog/1-meta-post/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/howto/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/hugo/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/informatics/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/meta/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/blog/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://mayjuun.com/tags/website/</loc>
-    <lastmod>2020-11-19T04:01:40+00:00</lastmod>
   </url>
   
   <url>

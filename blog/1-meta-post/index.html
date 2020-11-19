@@ -147,10 +147,10 @@
 <li>the repo where I make all changes: <a href="https://github.com/MayJuun/mayjuun-website">mayjuun-website</a>  &lt;&mdash; <em>fork this repo!!!</em></li>
 <li>an auto-updated repo that makes a <a href="https://github.com/MayJuun/MayJuun.github.io">GitHub page</a></li>
 </ol>
-<p>On my end, I make changes to repo #2 via two convenience scripts (<a href="https://github.com/MayJuun/mayjuun-website/blob/master/update.sh">update</a>, <a href="https://github.com/MayJuun/mayjuun-website/blob/master/deploy.sh">deploy</a>) to automate my Git commands. All I have to do is open a terminal and type:</p>
+<p>On my end, repo #2 is what this website actually displays. I make use of two convenience scripts (<a href="https://github.com/MayJuun/mayjuun-website/blob/master/update.sh">update</a>, <a href="https://github.com/MayJuun/mayjuun-website/blob/master/deploy.sh">deploy</a>) to automate all my Git commands for this repo. All I have to do is open a terminal in ths mayjuun-website folder and type:</p>
 <pre><code class="language-terminal" data-lang="terminal">./update.sh
 ./deploy.sh
-</code></pre><p>&hellip;and I&rsquo;m done. Website is accurate, with all changes implemented and tracked by Git.</p>
+</code></pre><p>&hellip;and I&rsquo;m done. Website is accurate, with all changes implemented and all my layout/content changes tracked in their own separate repo (#1).</p>
 <h2 id="creating-a-post">Creating a Post</h2>
 <p>If you haven&rsquo;t yet, fork my <a href="https://github.com/MayJuun/mayjuun-website">mayjuun-website</a> repo.
 <figure>
@@ -163,8 +163,8 @@
 </figure>
 
 <p>In terminal, in that folder, create a <a href="https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository">new branch</a>, and make whatever edits you want in your favorite IDE, such as <a href="https://code.visualstudio.com/">VS Code</a>.</p>
-<p>With everything set-up as is, I just need to create a new Markdown file in my blog directory <code>/content/blog/##-MY-POST.md</code>. Usually, I&rsquo;ll just copy the previous post, update the tags/images, and delete all the text. I&rsquo;ll typically put images in the <code>/static/images/blog/##/</code> folder, to keep things organized. Finally, if you have Hugo installed, you can run <code>hugo serve -D</code> in terminal to see your changes implemented each time you save a file.</p>
-<p>The <a href="https://www.markdownguide.org/cheat-sheet/">Markdown Cheat Sheet</a> is a handy resource for Markdown formatting. Feel free to look at my other <code>.md</code> blog posts in this repo for formatting tips. Keeping with the open-source theme, consider using <a href="https://www.pexels.com/">Pexels</a>, <a href="https://unsplash.com/">Unsplash</a>, or <a href="https://pixabay.com/">Pixabay</a> when choosing stock images. Finally, if you need an image with custom sizing, use this snippet with <code>img-right</code> or <code>img-left</code> based on intended alignment and with your custom <code>width</code>:</p>
+<p>Create a new Markdown file in the blog directory <code>/content/blog/##-MY-POST.md</code>. Usually, I&rsquo;ll just copy the previous post, update the tags/images at the header, and delete all the text. I put all images for that post in the <code>/static/images/blog/##/</code> folder to keep things organized. Finally, if you have Hugo installed as shown below, you can run <code>hugo serve -D</code> in terminal at the mayjuun-website folder to see a local copy of this site. This way, each time you save a file, you can see all layout changes in real time.</p>
+<p>The <a href="https://www.markdownguide.org/cheat-sheet/">Markdown Cheat Sheet</a> is a handy resource for Markdown formatting. Feel free to look at the other <code>.md</code> posts as well for tips on handling hyperlinks, videos, etc. Keeping with the open-source theme, consider using <a href="https://www.pexels.com/">Pexels</a>, <a href="https://unsplash.com/">Unsplash</a>, or <a href="https://pixabay.com/">Pixabay</a> when choosing stock images. Finally, if you need an image with custom sizing instead of the default <code>!(title)[IMAGE.png]</code>, use this snippet with <code>img-right</code>, <code>img-left</code>, or <code>img-center</code> based on intended alignment and with your custom <code>width</code> for that image:</p>
 <pre><code class="language-hugo" data-lang="hugo">{{&lt; figure src=&quot;/images/blog/YOUR_IMAGE.PNG&quot; title=&quot;YOUR TITLE&quot; class=&quot;img-right&quot; width=&quot;250&quot; &gt;}}
 </code></pre><p>Here&rsquo;s an example of what a Markdown file looks like
 <figure>
@@ -209,7 +209,11 @@ git push origin MY-BRANCH-NAME
 </ol>
 <pre><code class="language-terminal" data-lang="terminal">hugo new site quickstart
 </code></pre><ol start="7">
-<li>Finally, run a local server with the command line:</li>
+<li>Navigate to the new folder you created:</li>
+</ol>
+<pre><code class="language-terminal" data-lang="terminal">cd quickstart
+</code></pre><ol start="8">
+<li>And run a local server with the command line:</li>
 </ol>
 <pre><code class="language-terminal" data-lang="terminal">hugo serve -D
 </code></pre><p>This will run your site in fast render mode (which is the <code>-D</code> flag). You can access this site when the serve is running by going to <code>https://localhost:1313</code> in your preferred web browser. If you ran this same command <code>hugo serve -D</code> in another folder, such as where you forked/cloned my <a href="https://github.com/MayJuun/mayjuun-website">mayjuun-website</a> repo, then you can run a local version of that website instead. As you make changes to the site locally, the browser will automatically update each time a file is saved.</p>
