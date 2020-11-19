@@ -137,9 +137,10 @@
 <p>If you&rsquo;ve never worked with GitHub Pull Requests, start by watching this 2 minute video:
 <div style="text-align:center" class="embed video-player"> 
     <iframe class="youtube-player" type="text/html"
-        width="640" height="385"
+        width="560" height="315"
         src="https://www.youtube.com/embed/8lGpZkjnkt4"
-        allowfullscreen frameborder="0">
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </iframe>
 </div></p>
 <p>The entire website exists as two Github repos:</p>
@@ -154,21 +155,21 @@
 <h2 id="creating-a-post">Creating a Post</h2>
 <p>If you haven&rsquo;t yet, fork my <a href="https://github.com/MayJuun/mayjuun-website">mayjuun-website</a> repo.
 <figure>
-    <img src="/images/blog/1-meta/fork-repo.png" width="600"/> 
+    <img src="/images/blog/1-meta/fork-repo.png" width="75%"/> 
 </figure>
 </p>
 <p>Go to the new fork you just created, and clone it to your desktop.</p>
 <figure>
-    <img src="/images/blog/1-meta/clone-repo.png" width="600"/> 
+    <img src="/images/blog/1-meta/clone-repo.png" width="75%"/> 
 </figure>
 
 <p>In terminal, in that folder, create a <a href="https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/creating-and-deleting-branches-within-your-repository">new branch</a>, and make whatever edits you want in your favorite IDE, such as <a href="https://code.visualstudio.com/">VS Code</a>.</p>
 <p>Create a new Markdown file in the blog directory <code>/content/blog/##-MY-POST.md</code>. Usually, I&rsquo;ll just copy the previous post, update the tags/images at the header, and delete all the text. I put all images for that post in the <code>/static/images/blog/##/</code> folder to keep things organized. Finally, if you have Hugo installed as shown below, you can run <code>hugo serve -D</code> in terminal at the mayjuun-website folder to see a local copy of this site. This way, each time you save a file, you can see all layout changes in real time.</p>
-<p>The <a href="https://www.markdownguide.org/cheat-sheet/">Markdown Cheat Sheet</a> is a handy resource for Markdown formatting. Feel free to look at the other <code>.md</code> posts as well for tips on handling hyperlinks, videos, etc. Keeping with the open-source theme, consider using <a href="https://www.pexels.com/">Pexels</a>, <a href="https://unsplash.com/">Unsplash</a>, or <a href="https://pixabay.com/">Pixabay</a> when choosing stock images. Finally, if you need an image with custom sizing instead of the default <code>![title](IMAGE.png)</code>, use this snippet with <code>img-right</code>, <code>img-left</code>, or <code>img-center</code> based on intended alignment and with your custom <code>width</code> for that image:</p>
-<pre><code class="language-hugo" data-lang="hugo">{{&lt; figure src=&quot;/images/blog/YOUR_IMAGE.PNG&quot; title=&quot;YOUR TITLE&quot; class=&quot;img-right&quot; width=&quot;250&quot; &gt;}}
+<p>The <a href="https://www.markdownguide.org/cheat-sheet/">Markdown Cheat Sheet</a> is a handy resource for Markdown formatting. Feel free to look at the other <code>.md</code> posts as well for tips on handling hyperlinks, videos, etc. Keeping with the open-source theme, consider using <a href="https://www.pexels.com/">Pexels</a>, <a href="https://unsplash.com/">Unsplash</a>, or <a href="https://pixabay.com/">Pixabay</a> when choosing stock images. Finally, if you need an image with custom sizing instead of the default <code>![YOUR TITLE](YOUR-IMAGE.png)</code>, use this snippet with <code>img-right</code>, <code>img-left</code>, or <code>img-center</code> based on intended alignment and with your custom <code>width</code> for that image:</p>
+<pre><code class="language-hugo" data-lang="hugo">{{&lt; figure src=&quot;/images/blog/YOUR-IMAGE.PNG&quot; title=&quot;YOUR TITLE&quot; class=&quot;img-right&quot; width=&quot;75%&quot; &gt;}}
 </code></pre><p>Here&rsquo;s an example of what a Markdown file looks like
 <figure>
-    <img src="/images/blog/1-meta/vs-code.png" width="600"/> 
+    <img src="/images/blog/1-meta/vs-code.png" width="75%"/> 
 </figure>
 </p>
 <hr>
