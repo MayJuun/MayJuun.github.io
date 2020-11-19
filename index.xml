@@ -6,14 +6,35 @@
     <description>Recent content on MayJuun</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 17 Nov 2020 04:16:40 +0000</lastBuildDate><atom:link href="https://mayjuun.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 19 Nov 2020 05:07:05 +0000</lastBuildDate><atom:link href="https://mayjuun.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Symptom Tracker</title>
+      <title>PRAPARE Survey</title>
+      <link>https://mayjuun.com/portfolio/prapare-survey/</link>
+      <pubDate>Thu, 19 Nov 2020 05:07:05 +0000</pubDate>
+      
+      <guid>https://mayjuun.com/portfolio/prapare-survey/</guid>
+      <description>PRAPARE SURVEY This is a work in progress. The Protocol for Responding to and Assessing Patients&#39; Assets, Risks, and Experiences (PRAPARE) survey was recreated in a Flutter environment using its LOINC FHIR specification. The app directly loads the FHIR spec (albeit with some basic modifications to the original FHIR JSON to more closely match the initial survey). It has basic validation in place for survey completion.
+Features  Personal Characteristics   Personal Characteristics, filled out   Social and Emotional Health   </description>
+    </item>
+    
+    <item>
+      <title>AMIA Symptom Tracker</title>
       <link>https://mayjuun.com/portfolio/symptom-tracker/</link>
-      <pubDate>Tue, 17 Nov 2020 04:16:40 +0000</pubDate>
+      <pubDate>Thu, 19 Nov 2020 04:49:49 +0000</pubDate>
       
       <guid>https://mayjuun.com/portfolio/symptom-tracker/</guid>
-      <description>AMIA Symptom Tracker This was the demo application used for live-coding in the 4-hour Flutter workshop given at AMIA&amp;rsquo;s 2020 Virtual Clinical Informatics Conference. A total of 6 informaticians hosted this workshop.</description>
+      <description>AMIA Symptom Tracker This was the demo application used for live-coding in the 4-hour Flutter workshop given at AMIA&amp;rsquo;s 2020 Virtual Clinical Informatics Conference. A total of 6 informaticians hosted this workshop.
+Features  Welcome Screen, live-coded in full   Symptom Tracker Dashboard, live-coded in full   Check-In Screen, live-coded in full   Firebase Puns, created by audience using Live Share   Flutter / Firebase connection, previously created while live-coding   FHIR Package Demo, creating live patients on HAPI and Aidbox FHIR servers.</description>
+    </item>
+    
+    <item>
+      <title>A Meta-Post for a Meta-Blog</title>
+      <link>https://mayjuun.com/blog/1-meta-post/</link>
+      <pubDate>Thu, 19 Nov 2020 04:01:40 +0000</pubDate>
+      
+      <guid>https://mayjuun.com/blog/1-meta-post/</guid>
+      <description>Welcome to the Informatics Meta-Blog Knowledge is power&amp;hellip;and best shared with others. This is the place where any informatician, innovator, or entrepreneur can crowd-source contribute and build upon each others&#39; knowledge.
+Many of the things I post here will be open-source and moderately technical, but that&amp;rsquo;s only my preference. If there&amp;rsquo;s something else you want to share about healthcare, informatics, innovation, or entrepreneurship, please feel free. Just don&amp;rsquo;t use this as a shameless plug for your work.</description>
     </item>
     
   </channel>
