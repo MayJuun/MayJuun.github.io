@@ -11,7 +11,7 @@
   <!-- Mobile Specific Metas -->
   <meta name="format-detection" content="telephone=no">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>tutorial</title>
+  <title>pdf2json: A Step-by-Step Guide</title>
   <link rel="icon" href="https://mayjuun.com/images/favicon.ico">
 
   <!-- Twitter Bootstrs CSS -->
@@ -82,90 +82,86 @@
     </div>
 </section>
 
-<!-- Global Page Section Start -->
 <section class="global-page-header">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="block">
-                    <h2>tutorial</h2>
-                    <ol class="breadcrumb list-inline text-center">
-                        <li class="list-inline-item">
-                            <p></p><a href="https://mayjuun.com/">
-                                <i class="ion-ios-home"></i>
-                                Home
-                            </a>
-                            &nbsp; &nbsp;/</p>
-                        </li>
-                        <li class="active list-inline-item">tutorial</li>
-                    </ol>
+                    <h2>pdf2json: A Step-by-Step Guide</h2>
+                    <div class="portfolio-meta">
+                        <span>Friday, Mar 26, 2021</span>|
+                        <span> Tags:
+                            terminal, json, pdf, tutorial
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!-- Global Page Section End -->
 
-<section id="blog-full-width">
+<section class="single-post">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 
-                <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
-                    
-                    <div class="blog-post-image">
-                        <a href="https://mayjuun.com/blog/5-pdf-2-json/">
-                             <img class="img-fluid post-image w-50" src="https://mayjuun.com/images/blog/5-pdf-2-json/ferenc-almasi-HfFoo4d061A-unsplash.jpeg" alt="post-image"/>
-                        </a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                            <a href="https://mayjuun.com/blog/5-pdf-2-json/">pdf2json: A Step-by-Step Guide</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Friday, Mar 26, 2021</span>
-                            <span>by
-                                John Manning, MD, FAMIA, FACEP
-                            </span>
-                            
-                            
-                        </div>
-                        <p>
-                            Intro - Well, I can&rsquo;t say this issue will come up too often for others&hellip;but should you ever need it, here are the exact steps you can take to convert all the text from a PDF file into a JSON file with key-value pairs of &quot;page#&quot; : &quot;all page text without extra white space&quot;. Note that page# is an integer that starts at 1, not 0.
-I needed this in a project where the Flutter packages that performed PDF search functions were not performant, had memory leaks, or seemed to work inconsistently across platforms.
-                        </p>
-                        <a href="https://mayjuun.com/blog/5-pdf-2-json/" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
-                    </div>
-                </article>
+                <div class="post-img">
+                    <img class="img-fluid" alt="" src="https://mayjuun.com/images/blog/5-pdf-2-json/ferenc-almasi-HfFoo4d061A-unsplash.jpeg">
+                </div>
                 
-                <article class="wow fadeInDown" data-wow-delay=".3s" data-wow-duration="500ms">
-                    
-                    <div class="blog-post-image">
-                        <a href="https://mayjuun.com/blog/2-get-fluttered-mvcs/">
-                             <img class="img-fluid post-image w-50" src="https://mayjuun.com/images/blog/2-get-mvcs/get-mvcs-logo.png" alt="post-image"/>
-                        </a>
-                    </div>
-                    <div class="blog-content">
-                        <h2 class="blogpost-title">
-                            <a href="https://mayjuun.com/blog/2-get-fluttered-mvcs/">Get Fluttered: MVC&#43;S Architecture, Example</a>
-                        </h2>
-                        <div class="blog-meta">
-                            <span>Thursday, Jan 14, 2021</span>
-                            <span>by
-                                John Manning, MD, FAMIA, FACEP
-                            </span>
-                            
-                            
-                        </div>
-                        <p>
-                            Intro - To all who watched my original GetFluttered: MVC+S Architecture video, I want to thank you immensely for your patience.
-Before making new GetFluttered videos, we wanted to implement:
- A means to provide written, supplemental info &hellip; Meta-Blog; A complex, production-level MVC+S example &hellip; PRAPARE app; &amp; A means for others to join / collaborate &hellip; FlutterJuun Slack invite.  With these elements now firmly established, it should be easier to follow along with GetFluttered content by comparing simple + complex code examples that achieve the same objective.
-                        </p>
-                        <a href="https://mayjuun.com/blog/2-get-fluttered-mvcs/" class="btn btn-dafault btn-details hvr-bounce-to-right">Continue Reading</a>
-                    </div>
-                </article>
-                
+                <div class="post-content">
+                    <h2 id="intro--">Intro -</h2>
+<p>Well, I can&rsquo;t say this issue will come up too often for others&hellip;but should you ever need it, here are the exact steps you can take to convert all the text from a PDF file into a JSON file with key-value pairs of <code>&quot;page#&quot; : &quot;all page text without extra white space&quot;</code>. Note that <code>page#</code> is an integer that starts at 1, not 0.</p>
+<p>I needed this in a project where the Flutter packages that performed PDF search functions were not performant, had memory leaks, or seemed to work inconsistently across platforms. That limitation may have changed by the time you read this post, so do a bit of search before going too much further.</p>
+<p>Since the files read were quite large to begin with, I dedided it would be best for everyone (and for my own peace of mind) to just go ahead an convert all text into something easily consumed by Dart&hellip;hence a JSON file. This method isn&rsquo;t specific to Dart/Flutter. For our purposes, it took content from a 20 mb file and compressed it into 200 kb. Search will definitely be more streamlined!</p>
+<p>Here are the steps I followed. Later on, I may update this blog post and/or optimize my terminal commands, thus limiting the requirements of manual &lsquo;data scrubbing&rsquo; even further. The data scrubbing steps aren&rsquo;t too cumbersome right now, so for the time being&hellip;I&rsquo;m just leaving them in.</p>
+<h2 id="converting-pdf-to-json-first-attempt">Converting PDF to JSON (first attempt)</h2>
+<h3 id="requirements">Requirements</h3>
+<p>First, you need <a href="https://pdfgrep.org/doc.html">pdfgrep</a> and <a href="https://stedolan.github.io/jq/">jq</a> available in your terminal, assuming you haven&rsquo;t previously installed them. On a Mac, using <a href="https://brew.sh">homebrew</a>, simply open a terminal and type:</p>
+<pre><code class="language-terminal" data-lang="terminal">brew install pdfgrep jq
+</code></pre><h3 id="steps-to-follow">Steps to Follow</h3>
+<p>I&rsquo;m going to assume that your PDF file is named in a specific manner where you are sure - without question - that no text exists in your PDF with the file name&rsquo;s title and a trailing <code>:</code>, aka <code>FILENAME.pdf:</code>. If you can&rsquo;t say that for sure, please change your filename before you run the following command:</p>
+<pre><code class="language-terminal" data-lang="terminal">pdfgrep -nH '.*' FILENAME.pdf | sed 'H;1h;$!d;x;y/\n/ /' | sed &quot;s/\&quot;/'/g&quot; | tr -s ' ' &gt; input.txt
+</code></pre><p>Then:</p>
+<ul>
+<li>Open the file</li>
+<li>Turn all of the <code>FILENAME.pdf:</code> elements into carriage returns (on Mac, in VS Code, press cmd + d repeatedly to select all duplicates, then enter)</li>
+<li>To the right of the index/page number, add &lsquo;:::&rsquo;   (on Mac, after you pressed enter in the previous step, simply press cmd + right, :, :)</li>
+</ul>
+<p>Make sure that you remove the first (now unnecessary) carriage return from line 1 and that you wrap the entire document with a single pair of brackets (first character in the file is <code>{</code>, last character in the file is <code>}</code> ). Now close the file.</p>
+<p>Then, in terminal, run:</p>
+<pre><code class="language-terminal" data-lang="terminal">jq -R -n -c '[inputs|split(&quot;:::&quot;)|{(.[0]):.[1]}] | add' input.txt &gt; output.json
+</code></pre><p>Finally, re-open the file, select and delete all ' \f ' and ' \f' fields (if desired)&hellip;and sit back and enjoy the fruits of your effort! Once learned, the total time spent to get from PDF to performant JSON file can be measured in seconds.</p>
+<hr>
+<h3 id="so-what-just-happened">So What Just Happened?</h3>
+<p>I can&rsquo;t say I&rsquo;m an expert on piping commands through terminal to build optimized regular expressions&hellip;nor am I a pro at <code>sed</code>, <code>grep</code>, and the like&hellip;but I am able to do a bit of targeted &lsquo;Google searching&rsquo;.</p>
+<p>So I don&rsquo;t forget what each step entails, I&rsquo;ll try to explain each section that was utilized in these two terminal commands below:</p>
+<ul>
+<li><a href="https://pdfgrep.org/doc.html">pdfgrep</a> will search for items within a PDF using extended regular expressions. I&rsquo;m specifically using the <code>'.*'</code> expression to get the entire raw file. When testing, add the <code>--max-count 2</code> flag</li>
+<li>pdfgrep data are piped through <code>sed 'H;1h;$!d;x;y/\n/ /'</code> to remove all carriage returns, through <code>sed &quot;s/\&quot;/'/g&quot;</code> to convert all double quotes to single quotes (so it won&rsquo;t break your JSON), and through <code>tr -s ' '</code> to remove all trailing whitespace. The result is saved to <code>input.txt</code> with the formatting of:</li>
+</ul>
+<pre><code class="language-terminal" data-lang="terminal">FILENAME.pdf:1: Lorem ipsum dolor ... FILENAME.pdf:2: Lorem ipsum dolor ... FILENAME.pdf:3: Lorem ipsum dolor ...
+</code></pre><ul>
+<li>
+<p>Note that I am intentionally using &lsquo;FILENAME.pdf:&rsquo; as a unique search term for this document</p>
+</li>
+<li>
+<p>I manually turn all <code>FILENAME.pdf:</code> instances into carriage returns, and then move over (using cmd + right, since that skips by word and works regardless of how many digits are in the page number) and add two extra <code>:</code> fields, thus giving:</p>
+</li>
+</ul>
+<pre><code class="language-terminal" data-lang="terminal">
+1::: Lorem ipsum dolor ...
+2::: Lorem ipsum dolor ...
+3::: Lorem ipsum dolor ...
+</code></pre><ul>
+<li>After deleting the first (empty) line, I save my results and run <code>jq -R -n -c '[inputs|split(&quot;:::&quot;)|{(.[0]):.[1]}] | add' input.txt</code>, which uses <code>:::</code> as a delimeter between key-value pairs and carriage return as a delimeter for each entry. This result is saved as <code>output.json</code>, though it (unfortunately) also contains <code>\f</code> in all fields save for the last (which has ' \f' without the trailing space). After deleting those escape characters and extra whitespaces, I now have a fully implemented JSON from a PDF!</li>
+</ul>
+<h2 id="closing-thoughts">Closing Thoughts</h2>
+<p>This was a quick answer to an interesting challenge. Hopefully others will find it useful, if they ever need to convert the text within a PDF to a JSON string whose index is the page number. In retrospect, it&rsquo;s clear that some of my steps can be better automated/optimized&hellip;but this does work and it didn&rsquo;t take much time out of my day.</p>
+<p>Hope that helps someone!</p>
+<p>&ndash;John</p>
+
+                </div>
             </div>
         </div>
     </div>
