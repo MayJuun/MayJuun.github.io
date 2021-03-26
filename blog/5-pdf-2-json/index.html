@@ -119,7 +119,8 @@
 <h3 id="requirements">Requirements</h3>
 <p>First, you need <a href="https://pdfgrep.org/doc.html">pdfgrep</a> and <a href="https://stedolan.github.io/jq/">jq</a> available in your terminal, assuming you haven&rsquo;t previously installed them. On a Mac, using <a href="https://brew.sh">homebrew</a>, simply open a terminal and type:</p>
 <pre><code class="language-terminal" data-lang="terminal">brew install pdfgrep jq
-</code></pre><h3 id="steps-to-follow">Steps to Follow</h3>
+</code></pre><hr>
+<h2 id="steps-to-follow">Steps to Follow</h2>
 <p>I&rsquo;m going to assume that your PDF file is named in a specific manner where you are sure - without question - that no text exists in your PDF with the file name&rsquo;s title and a trailing <code>:</code>, aka <code>FILENAME.pdf:</code>. If you can&rsquo;t say that for sure, please change your filename before you run the following command:</p>
 <pre><code class="language-terminal" data-lang="terminal">pdfgrep -nH '.*' FILENAME.pdf | sed 'H;1h;$!d;x;y/\n/ /' | sed &quot;s/\&quot;/'/g&quot; | tr -s ' ' &gt; input.txt
 </code></pre><p>Then:</p>
@@ -133,7 +134,7 @@
 <pre><code class="language-terminal" data-lang="terminal">jq -R -n -c '[inputs|split(&quot;:::&quot;)|{(.[0]):.[1]}] | add' input.txt &gt; output.json
 </code></pre><p>Finally, re-open the file, select and delete all ' \f ' and ' \f' fields (if desired)&hellip;and sit back and enjoy the fruits of your effort! Once learned, the total time spent to get from PDF to performant JSON file can be measured in seconds.</p>
 <hr>
-<h3 id="so-what-just-happened">So What Just Happened?</h3>
+<h2 id="so-what-just-happened">So What Just Happened?</h2>
 <p>I can&rsquo;t say I&rsquo;m an expert on piping commands through terminal to build optimized regular expressions&hellip;nor am I a pro at <code>sed</code>, <code>grep</code>, and the like&hellip;but I am able to do a bit of targeted &lsquo;Google searching&rsquo;.</p>
 <p>So I don&rsquo;t forget what each step entails, I&rsquo;ll try to explain each section that was utilized in these two terminal commands below:</p>
 <ul>
@@ -154,9 +155,18 @@
 2::: Lorem ipsum dolor ...
 3::: Lorem ipsum dolor ...
 </code></pre><ul>
-<li>After deleting the first (empty) line, I save my results and run <code>jq -R -n -c '[inputs|split(&quot;:::&quot;)|{(.[0]):.[1]}] | add' input.txt</code>, which uses <code>:::</code> as a delimeter between key-value pairs and carriage return as a delimeter for each entry. This result is saved as <code>output.json</code>, though it (unfortunately) also contains <code>\f</code> in all fields save for the last (which has ' \f' without the trailing space). After deleting those escape characters and extra whitespaces, I now have a fully implemented JSON from a PDF!</li>
+<li>After deleting the first (empty) line and adding brackets to the start/end&hellip;</li>
 </ul>
-<h2 id="closing-thoughts">Closing Thoughts</h2>
+<pre><code class="language-terminal" data-lang="terminal">{ 1::: Lorem ipsum dolor ...
+2::: Lorem ipsum dolor ...
+3::: Lorem ipsum dolor ... }
+</code></pre><ul>
+<li>I save my results and run <code>jq -R -n -c '[inputs|split(&quot;:::&quot;)|{(.[0]):.[1]}] | add' input.txt</code>, which uses <code>:::</code> as a delimeter between key-value pairs and carriage return as a delimeter for each entry. This result is saved as <code>output.json</code>, though it (unfortunately) also contains <code>\f</code> in all fields save for the last (which has ' \f' without the trailing space). After deleting those escape characters and extra whitespaces, I now have a fully implemented JSON from a PDF!</li>
+</ul>
+<pre><code class="language-terminal" data-lang="terminal">{ &quot;1&quot;: &quot;Lorem ipsum dolor ...&quot;,
+&quot;2&quot;: &quot;Lorem ipsum dolor ...&quot;,
+&quot;3:&quot; &quot;Lorem ipsum dolor ...&quot; }
+</code></pre><h2 id="closing-thoughts">Closing Thoughts</h2>
 <p>This was a quick answer to an interesting challenge. Hopefully others will find it useful, if they ever need to convert the text within a PDF to a JSON string whose index is the page number. In retrospect, it&rsquo;s clear that some of my steps can be better automated/optimized&hellip;but this does work and it didn&rsquo;t take much time out of my day.</p>
 <p>Hope that helps someone!</p>
 <p>&ndash;John</p>
