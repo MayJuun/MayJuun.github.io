@@ -1,848 +1,862 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta charset=utf-8><meta name=description content="MayJuun: Less Clicking, More Doctoring"><meta name=author content="MayJuun"><meta name=generator content="Hugo 0.83.1"><meta name=format-detection content="telephone=no"><meta name=viewport content="width=device-width,initial-scale=1"><title>SDC Workflow Example</title><link rel=icon href=https://mayjuun.com/images/favicon-1.ico><link rel=stylesheet href=https://mayjuun.com/plugins/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/ionicons/ionicons.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/animate-css/animate.css><link rel=stylesheet href=https://mayjuun.com/plugins/slider/slider.css><link rel=stylesheet href=https://mayjuun.com/plugins/slick/slick.css><link rel=stylesheet href=https://mayjuun.com/plugins/facncybox/jquery.fancybox.css><link rel=stylesheet href=https://mayjuun.com/plugins/hover/hover-min.css><link rel=stylesheet href=https://mayjuun.com/css/style.min.css integrity media=screen></head><body><section class="top-bar animated-header"><div class=container><div class=row><div class=col-lg-12><nav class="navbar navbar-expand-md navbar-light bg-light"><a class=navbar-brand href=https://mayjuun.com/><img src=https://mayjuun.com/images/logo-line.png alt=logo class=logo-box></a>
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://app.termly.io/ https://fhirpath.mayjuun.com; img-src 'self' 'unsafe-inline' data: w3.org/svg/2000; object-src 'none'; style-src 'self' https://fonts.googleapis.com https://www.google-analytics.com 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.termly.io/embed-policy.min.js https://fhirpath.mayjuun.com https://fonts.googleapis.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com;"><meta charset=utf-8><meta name=description content="MayJuun: Less Clicking, More Doctoring"><meta name=author content="MayJuun"><meta name=generator content="Hugo 0.100.2"><meta name=format-detection content="telephone=no"><meta name=viewport content="width=device-width,initial-scale=1"><title>SDC Workflow Example</title><link rel=icon href=https://mayjuun.com/images/favicon-1.ico><link rel=stylesheet href=https://mayjuun.com/plugins/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/ionicons/ionicons.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/animate-css/animate.css><link rel=stylesheet href=https://mayjuun.com/plugins/slider/slider.css><link rel=stylesheet href=https://mayjuun.com/plugins/slick/slick.css><link rel=stylesheet href=https://mayjuun.com/plugins/facncybox/jquery.fancybox.css><link rel=stylesheet href=https://mayjuun.com/plugins/hover/hover-min.css><link rel=stylesheet href=https://mayjuun.com/css/style.min.css integrity media=screen></head><body><section class="top-bar animated-header"><div class=container><div class=row><div class=col-lg-12><nav class="navbar navbar-expand-md navbar-light bg-light"><a class=navbar-brand href=https://mayjuun.com/><img src=https://mayjuun.com/images/logo-line.png alt=logo class=logo-box></a>
 <button class=navbar-toggler type=button data-toggle=collapse data-target=#navigation aria-controls=navigation aria-expanded=false aria-label="Toggle navigation">
 <span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navigation><ul class="navbar-nav ml-auto"><li class=nav-item><a class=nav-link href=https://mayjuun.com/>Home</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/blog>Meta-Blog</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/fhirfli>FHIR-FLI</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/portfolio>App Portfolio</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/about>About</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/service>Services</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/contact>Contact</a></li></div></nav></div></div></div></section><section class=global-page-header><div class=container><div class=row><div class=col-md-12><div class=block><h2>SDC Workflow Example</h2><div class=portfolio-meta><span>Friday, Dec 31, 2021</span>|
 <span>Tags:
-FHIR®, SDC, Questionnaire, QuestionnaireResponse, Structured Data Capture</span></div></div></div></div></div></section><section class=single-post><div class=container><div class=row><div class=col-md-12><div class=post-content><h2 id=structured-data-capture-sdc>Structured Data Capture (SDC)</h2><p>As usual, the HL7 website has a lot to say on the topic of <a href=http://hl7.org/fhir/uv/sdc/2019May/workflow.html>SDC</a>, and I DO advise you to read through it because it&rsquo;s very helpful. However, where I thought I might be able value is with some additional examples.</p><p>All of these examples are from a project I&rsquo;m currently involved with for <a href=https://www.zanenetworks.com/zane-networks-mayjuun-receive-contract-for-the-needs-assessment-tool-solution-for-new-jerseys-inck-project/>New Jersey Integrated Care for Kids</a>. The idea behind this project is that a clinician (social worker, teacher, etc.), would like to perform a needs assessment on a pediatric patient. They request the assesment, then we create a Task using a PlanDefinition that includes multiple questionnaires appropriate for that age group. They are sent the questionnaires, complete them, and the Task is completed and updated with the QuestionnaireResponses as well as a MeasureReport for overall scoring. It took a while to try and ensure I had the correct workflow and all of the correct resources. I figured I would document that all here to get feedback and offer an example to anyone who might need one.</p><h3 id=servicerequest>ServiceRequest</h3><p>While the request can come from anyone (with the ability to do such a thing), we represent it on our server using a ServiceRequest. A sample ServiceRequest is displayed below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest&#34;</span>,
-    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
-    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;active&#34;</span>,
-    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;instance-order&#34;</span>,
-    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: [
-        <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>
-    ],
-    <span style=color:#f92672>&#34;requester&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fd7b5daa-3a00-4bb5-bef2-c1d5ed375c6e&#34;</span>
-    },
-    <span style=color:#f92672>&#34;subject&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/8a968030-9d13-4938-b722-bc957e85088a&#34;</span>
-    },
-    <span style=color:#f92672>&#34;performer&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/8a968031-9d13-4938-b722-bc957e85088a&#34;</span>
-    }
-}</code></pre></div></div><p>As usual, not all fields are mandatory. The PlanDefinition is decided based on the patient&rsquo;s age. The requester can be an Organization or a Practitioner (for our use case). We include both the subject and the performer since we are dealing with pediatric patients.</p><h3 id=plandefinition>PlanDefinition</h3><p>After the ServiceRequest is created, that kicks off the process. We&rsquo;re working on a pub/sub workflow, but for now it we have a service that periodically polls for new ServiceRequests. It then pulls from the PlanDefinition to find what Resources need to be included in the Task. An example PlanDefinition is below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition&#34;</span>,
-    <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;New Jersey Integrated Care for Kids: Screening Tools for 6-8 months&#34;</span>,
-    <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;nat_6_8_months&#34;</span>,
-    <span style=color:#f92672>&#34;publisher&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
-    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
-    <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;New Jersey Integrated Care for Kids: Screening Tools for 6-8 months&#34;</span>,
-    <span style=color:#f92672>&#34;action&#34;</span>: [
-        {
-        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>,
-        <span style=color:#f92672>&#34;participant&#34;</span>: [
-            {
-            <span style=color:#f92672>&#34;role&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                {
-                    <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                    <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                    <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                }
-                ]
-            },
-            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-            },
-            {
-            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-            }
-        ],
-        <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;First Time Demographics&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/d2e03a84-6564-49cd-adee-fdee3b2c3f73&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Developmental Milestones: 6-8 months&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/b2046600-e808-434a-9442-83717a088cbb&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby&#34;</span>
-        },
-        {
-        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/aa90ff2a-3db3-42e8-ab39-374df411d488&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Parent and Family Questions: 1-8 months&#34;</span>
-        },
-        {
-        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/64ce4e7c-65df-426e-9289-d96023acc315&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Emotional Changes With a New Baby&#34;</span>
-        },
-        {
-        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/77d1555a-f5b4-4caf-b3ca-69303b403336&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;PEARLS Child&#34;</span>
-        },
-        {
-        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/0d6ae936-0358-4462-832f-7a46510a6dd8&#34;</span>,
-            <span style=color:#f92672>&#34;participant&#34;</span>: [
-                {
-                <span style=color:#f92672>&#34;role&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
-                    }
-                    ]
-                },
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
-                },
-                {
-                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
-                }
-            ],
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Other Questions: 1-11 months old&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/a1c7e19c-170c-4381-b89d-541bc04c1686&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Score Measure for NJinCK Needs Assessment 6-8 months&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;always_usually_sometimes_rarely_never&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;excellent_very_good_good_fair_poor&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;low_medium_high_indeterminate_risk&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;never_sometimes_often&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;not_at_all_somewhat_very_much&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;not_yet_somewhat_very_much&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>,
-            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;ScoreOneIfAboveOne&#34;</span>
-        }
-    ],
-    <span style=color:#f92672>&#34;contact&#34;</span>: [
-        {
-        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
-        <span style=color:#f92672>&#34;telecom&#34;</span>: [
-            {
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;email&#34;</span>,
-            <span style=color:#f92672>&#34;use&#34;</span>: <span style=color:#e6db74>&#34;work&#34;</span>,
-            <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;info@mayjuun.com&#34;</span>
-            }
-        ]
-        }
-    ],
-}</code></pre></div></div><p>The PlanDefinitions, at least for now, are all pre-constructed, not created on the fly. We have a PlanDefinition for each age group, and as part of the actions we include all of the Questionnaires that we want the patient/parent to complete. We also include the Measure that will be used to score all of the Questionnares. Lastly, we use a number of ValueSets as the answers to the Questionnaires, and this specifies which ValueSets will be needed.</p><h3 id=task>Task</h3><p>Now that we have the PlanDefinition, we can create the Task. The Task will include most of the information from the ServiceRequest and the PlanDefinition. The Task is our Questionnaire App interacts with, and it&rsquo;s what keeps track of the progress (you can even have sub-tasks, although we did not implement it for this workflow). An example task is below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
-    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;requested&#34;</span>,
-    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;order&#34;</span>,
-    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;8b19a541-70a7-45dc-9bda-82194123915e&#34;</span>,
-    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
-    <span style=color:#f92672>&#34;basedOn&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest/3e452ace-12c8-40a6-b18d-28c8075deb74&#34;</span>
-        }
-    ],
-    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>,
-    <span style=color:#f92672>&#34;owner&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/2dceb6ad-e0be-4ca7-b622-0c57369ea5e2&#34;</span>,
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Guarantor&#34;</span>
-    },
-    <span style=color:#f92672>&#34;for&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/66232d8f-628b-4740-b7a5-a2e736e076f5&#34;</span>,
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Patient&#34;</span>
-    },
-    <span style=color:#f92672>&#34;requester&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fe1318a0-a2ec-4580-9369-4949fb9ad82b&#34;</span>
-    },
-    <span style=color:#f92672>&#34;input&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/4d324c81-164e-4191-ae19-c4eb2101c975&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/65c42602-98c6-44a6-9923-d27a1e54d317&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/74675baa-2481-409e-b743-aec18bcbf6ce&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/be1ccfa9-5e44-4869-8e55-7710829ad6c6&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/fc97fd8e-ad33-477e-b33e-dc3a90fb2eb2&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>
-        }
-    ]
-}</code></pre></div></div><p>As mentioned it is basically a summary of the ServiceRequest and PlanDefinition. It references both, includes the ordering Practitioner/Organization, the Owner is who is responsible to complete the questionnaires, and the &ldquo;for&rdquo; is the Patient. If the Patient is an adult, we still use this format to clarify that the Patient is both completing the Questionnaires and is the subject of them. It also of course includes all of the Questionnaires, Measures, and ValueSets as actions.</p><h3 id=completed-task>Completed Task</h3><p>A completed Task is an updated version of the Task above. Note, we use the <code>"status"</code> as <code>requested</code>, <code>in-progress</code>, or <code>completed</code> to keep track of what stage the Task is in. In addition, the completed Task now has outputs of QuestionnaireResponses and a MeasureReport:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
-    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;completed&#34;</span>,
-    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;order&#34;</span>,
-    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;8b19a541-70a7-45dc-9bda-82194123915e&#34;</span>,
-    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
-    <span style=color:#f92672>&#34;basedOn&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest/3e452ace-12c8-40a6-b18d-28c8075deb74&#34;</span>
-        }
-    ],
-    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>,
-    <span style=color:#f92672>&#34;owner&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/2dceb6ad-e0be-4ca7-b622-0c57369ea5e2&#34;</span>,
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Guarantor&#34;</span>
-    },
-    <span style=color:#f92672>&#34;for&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/66232d8f-628b-4740-b7a5-a2e736e076f5&#34;</span>,
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Patient&#34;</span>
-    },
-    <span style=color:#f92672>&#34;requester&#34;</span>: {
-        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fe1318a0-a2ec-4580-9369-4949fb9ad82b&#34;</span>
-    },
-    <span style=color:#f92672>&#34;input&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/4d324c81-164e-4191-ae19-c4eb2101c975&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/65c42602-98c6-44a6-9923-d27a1e54d317&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/74675baa-2481-409e-b743-aec18bcbf6ce&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/be1ccfa9-5e44-4869-8e55-7710829ad6c6&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/fc97fd8e-ad33-477e-b33e-dc3a90fb2eb2&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>
-        }
-    ],
-    <span style=color:#f92672>&#34;output&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/bc7b7824-480d-4efb-ab58-3964d9840916&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/fb5d8b09-c765-4593-b01f-f0cb2e829040&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/9c40b031-9252-4909-8960-1871b64f6b60&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/7c37e26d-dcda-4cc2-83dc-9a601f8e427f&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/15ed2cfa-4e09-4b96-90b7-004209c2a8bc&#34;</span>
-        },
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: {
-                <span style=color:#f92672>&#34;coding&#34;</span>: [
-                    {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;measureReport&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
-                    }
-                ]
-            },
-            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;MeasureReport/3a140d2a-af23-4d8d-8e50-78978f69aa23&#34;</span>
-        }
-    ]
-}</code></pre></div></div><h3 id=measure>Measure</h3><p>This one was new for me. It&rsquo;s certainly not necessary, but I like it because it allowed me to score all of the Questionnaires in a single place. I could have created and Observation, but that would be one for each Questionnaire, and I really wanted them grouped together since the Questionnaires are being grouped together. I can&rsquo;t include my full fhirpath expressions because there&rsquo;s some proprietary information in them, but I&rsquo;ve included enough that I think you can get the idea.</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
-  <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;a1c7e19c-170c-4381-b89d-541bc04c1686&#34;</span>,
-  <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/Measure/score_nat_6_8_months&#34;</span>,
-  <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;score_nat_6_8_months&#34;</span>,
-  <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Score Measure for NJinCK Needs Assessment 6-8 months&#34;</span>,
-  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
-  <span style=color:#f92672>&#34;publisher&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
-  <span style=color:#f92672>&#34;contact&#34;</span>: [
-    {
-      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
-      <span style=color:#f92672>&#34;telecom&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;email&#34;</span>,
-          <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;info@mayjuun.com&#34;</span>,
-          <span style=color:#f92672>&#34;use&#34;</span>: <span style=color:#e6db74>&#34;work&#34;</span>
-        }
-      ]
-    }
-  ],
-  <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring rubric for total and subscores for all modules for 6-8 months, along with the total Social Complexity Score&#34;</span>,
-  <span style=color:#f92672>&#34;scoring&#34;</span>: {
-    <span style=color:#f92672>&#34;coding&#34;</span>: [
-      {
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/measure-scoring&#34;</span>,
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;continuous-variable&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Continuous Variable&#34;</span>
-      }
-    ]
-  },
-  <span style=color:#f92672>&#34;type&#34;</span>: [
-    {
-      <span style=color:#f92672>&#34;coding&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/measure-type&#34;</span>,
-          <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;patient-reported-outcome&#34;</span>,
-          <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Patient Reported Outcomes&#34;</span>
-        }
-      ]
-    }
-  ],
-  <span style=color:#f92672>&#34;group&#34;</span>: [
-    {
-      <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring for Developmental Milestones: 6-8 months&#34;</span>,
-      <span style=color:#f92672>&#34;code&#34;</span>: {
-        <span style=color:#f92672>&#34;coding&#34;</span>: [
-          {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/d2e03a84-6564-49cd-adee-fdee3b2c3f73&#34;</span>
-          }
-        ]
-      },
-      <span style=color:#f92672>&#34;population&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 6-8 months&#34;</span>,
-          <span style=color:#f92672>&#34;criteria&#34;</span>: {
-            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
-            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.where(linkId.contains(&#39;/milestones&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
-          }
-        }
-      ]
-    },
-    {
-      <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring for PSC-17: Baby&#34;</span>,
-      <span style=color:#f92672>&#34;code&#34;</span>: {
-        <span style=color:#f92672>&#34;coding&#34;</span>: [
-          {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/b2046600-e808-434a-9442-83717a088cbb&#34;</span>
-          }
-        ]
-      },
-      <span style=color:#f92672>&#34;population&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Irritability Subscore&#34;</span>,
-          <span style=color:#f92672>&#34;criteria&#34;</span>: {
-            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
-            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.item.where(linkId.contains(&#39;irritability&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
-          }
-        },
-        {
-          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>,
-          <span style=color:#f92672>&#34;criteria&#34;</span>: {
-            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
-            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.item.where(linkId.contains(&#39;/psc_baby/&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
-          }
-        }
-      ]
-    }
-  ]
-}</code></pre></div></div><p>This one needs a little explanation. The top is obviously just the metadata, the key piece here is the group. The group is a list that I&rsquo;ve used to contain all scores and subscores for a single questionnaire. The <code>group.code.coding.code</code> is the path to the Questionnaire that the scoring is applied against. I&rsquo;ve then used the population as a list of each score or subscore that apply to a single questionnaire. For instance, the PSC-17 Baby questionnaire has both a total score and an irritability score. These are both from the same questionnaire, but different responses are used for the result. These are detailed in the FHIRPath expressions.</p><h3 id=measurereport>MeasureReport</h3><p>The MeasureReport in turn mirrors the Measure and includes the scores, along with some other pertinent information (although this will obviously vary based on your scoring and the questionnaire). An example for something like the Measure above could look like this:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;MeasureReport&#34;</span>,
-  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;complete&#34;</span>,
-  <span style=color:#f92672>&#34;measure&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/Measure/score_nat_6_8_months&#34;</span>,
-  <span style=color:#f92672>&#34;subject&#34;</span>: {
-    <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/becebba3-813d-4585-89f9-f74c89d548fb&#34;</span>
-  },
-  <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;individual&#34;</span>,
-  <span style=color:#f92672>&#34;group&#34;</span>: [
-    {
-      <span style=color:#f92672>&#34;code&#34;</span>: {
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Scoring for Developmental Milestones: 6-8 months&#34;</span>
-      },
-      <span style=color:#f92672>&#34;stratifier&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;stratum&#34;</span>: [
-            {
-              <span style=color:#f92672>&#34;component&#34;</span>: [
-                {
-                  <span style=color:#f92672>&#34;code&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                      {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;low-risk&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;low risk&#34;</span>
-                      }
-                    ]
-                  },
-                  <span style=color:#f92672>&#34;value&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                      {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;low-risk&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;low risk&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/ValueSet/low_medium_high_risk&#34;</span>
-                      }
-                    ]
-                  }
-                },
-                {
-                  <span style=color:#f92672>&#34;code&#34;</span>: {
-                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 23-28 months&#34;</span>
-                  },
-                  <span style=color:#f92672>&#34;value&#34;</span>: {
-                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 23-28 months&#34;</span>
-                  }
-                }
-              ],
-              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
-                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>14</span>
-              }
-            }
-          ]
-        }
-      ]
-    },
-     {
-      <span style=color:#f92672>&#34;code&#34;</span>: {
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Scoring for PSC-17: Baby&#34;</span>
-      },
-      <span style=color:#f92672>&#34;stratifier&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;stratum&#34;</span>: [
-            {
-              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
-                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>8</span>
-              },
-              <span style=color:#f92672>&#34;value&#34;</span>: {
-                <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Irritability Subscore&#34;</span>
-              }
-            }
-          ]
-        },
-        {
-          <span style=color:#f92672>&#34;stratum&#34;</span>: [
-            {
-              <span style=color:#f92672>&#34;component&#34;</span>: [
-                {
-                  <span style=color:#f92672>&#34;code&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                      {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;At Risk&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;At Risk&#34;</span>
-                      }
-                    ]
-                  },
-                  <span style=color:#f92672>&#34;value&#34;</span>: {
-                    <span style=color:#f92672>&#34;coding&#34;</span>: [
-                      {
-                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;high-risk&#34;</span>,
-                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;high risk&#34;</span>,
-                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/ValueSet/low_medium_high_risk&#34;</span>
-                      }
-                    ]
-                  }
-                },
-                {
-                  <span style=color:#f92672>&#34;code&#34;</span>: {
-                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>
-                  },
-                  <span style=color:#f92672>&#34;value&#34;</span>: {
-                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>
-                  }
-                }
-              ],
-              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
-                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>14</span>
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}</code></pre></div></div><p>Aaaannnnndddd&mldr;scene. So that&rsquo;s our current workflow. I&rsquo;m obviously open to suggestions or pointers if any of this is out of sync with what the community thinks it should be. But I wanted to offer it as an example because there are not a lot of them out there at this time.</p></div></div></div></div></section><section id=call-to-action><div class=container><div class=row><div class=col-md-12><div class=block><h2 class="title wow fadeInDown" data-wow-delay=.3s data-wow-duration=500ms>Want to Learn More?</h1><a href=/contact class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=.7s data-wow-duration=500ms>Contact Us</a></div></div></div></div></section><footer id=footer><div class=container><div class="row content-justify-between"><p class=copyright>Website Content: Copyright
-<span><script>document.write((new Date).getFullYear())</script></span>by MayJuun. Contact us: <a href=mailto:info@mayjuun.com>info@mayjuun.com</a><br>Website Theme: Copyright 2020. Original design by <a href=http://www.themefisher.com target=_blank>Themefisher</a> under <a href=https://github.com/themefisher/timer-hugo/blob/master/LICENSE target=_blank>MIT license</a>, modified by MayJuun<br>FHIR® is a registered trademark of Health Level Seven International (HL7) and its use does not constitute an endorsement of products by HL7®</p></div></div></footer><script src=https://mayjuun.com/plugins/jQurey/jquery.min.js></script><script src=https://mayjuun.com/plugins/form-validation/jquery.form.js></script><script src=https://mayjuun.com/plugins/form-validation/jquery.validate.min.js></script><script src=https://mayjuun.com/plugins/slick/slick.min.js></script><script src=https://mayjuun.com/plugins/bootstrap/bootstrap.min.js></script><script src=https://mayjuun.com/plugins/wow-js/wow.min.js></script><script src=https://mayjuun.com/plugins/slider/slider.js></script><script src=https://mayjuun.com/plugins/facncybox/jquery.fancybox.js></script><script src=https://mayjuun.com/js/script.min.js></script><script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-50100304-2','auto'),ga('send','pageview')</script></body></html>
+FHIR®, SDC, Questionnaire, QuestionnaireResponse, Structured Data Capture</span></div></div></div></div></div></section><section class=single-post><div class=container><div class=row><div class=col-md-12><div class=post-content><h2 id=structured-data-capture-sdc>Structured Data Capture (SDC)</h2><p>As usual, the HL7 website has a lot to say on the topic of <a href=http://hl7.org/fhir/uv/sdc/2019May/workflow.html>SDC</a>, and I DO advise you to read through it because it&rsquo;s very helpful. However, where I thought I might be able value is with some additional examples.</p><p>All of these examples are from a project I&rsquo;m currently involved with for <a href=https://www.zanenetworks.com/zane-networks-mayjuun-receive-contract-for-the-needs-assessment-tool-solution-for-new-jerseys-inck-project/>New Jersey Integrated Care for Kids</a>. The idea behind this project is that a clinician (social worker, teacher, etc.), would like to perform a needs assessment on a pediatric patient. They request the assesment, then we create a Task using a PlanDefinition that includes multiple questionnaires appropriate for that age group. They are sent the questionnaires, complete them, and the Task is completed and updated with the QuestionnaireResponses as well as a MeasureReport for overall scoring. It took a while to try and ensure I had the correct workflow and all of the correct resources. I figured I would document that all here to get feedback and offer an example to anyone who might need one.</p><h3 id=servicerequest>ServiceRequest</h3><p>While the request can come from anyone (with the ability to do such a thing), we represent it on our server using a ServiceRequest. A sample ServiceRequest is displayed below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;active&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;instance-order&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: [
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;requester&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fd7b5daa-3a00-4bb5-bef2-c1d5ed375c6e&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;subject&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/8a968030-9d13-4938-b722-bc957e85088a&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;performer&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/8a968031-9d13-4938-b722-bc957e85088a&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><p>As usual, not all fields are mandatory. The PlanDefinition is decided based on the patient&rsquo;s age. The requester can be an Organization or a Practitioner (for our use case). We include both the subject and the performer since we are dealing with pediatric patients.</p><h3 id=plandefinition>PlanDefinition</h3><p>After the ServiceRequest is created, that kicks off the process. We&rsquo;re working on a pub/sub workflow, but for now it we have a service that periodically polls for new ServiceRequests. It then pulls from the PlanDefinition to find what Resources need to be included in the Task. An example PlanDefinition is below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;New Jersey Integrated Care for Kids: Screening Tools for 6-8 months&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;nat_6_8_months&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;publisher&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;New Jersey Integrated Care for Kids: Screening Tools for 6-8 months&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;action&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;First Time Demographics&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/d2e03a84-6564-49cd-adee-fdee3b2c3f73&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Developmental Milestones: 6-8 months&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/b2046600-e808-434a-9442-83717a088cbb&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/aa90ff2a-3db3-42e8-ab39-374df411d488&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Parent and Family Questions: 1-8 months&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/64ce4e7c-65df-426e-9289-d96023acc315&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Emotional Changes With a New Baby&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/77d1555a-f5b4-4caf-b3ca-69303b403336&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;PEARLS Child&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/0d6ae936-0358-4462-832f-7a46510a6dd8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;participant&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;role&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;PRN&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;parent&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/v3-RoleCode&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;related-person&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;patient&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Other Questions: 1-11 months old&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/a1c7e19c-170c-4381-b89d-541bc04c1686&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Score Measure for NJinCK Needs Assessment 6-8 months&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;always_usually_sometimes_rarely_never&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;excellent_very_good_good_fair_poor&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;low_medium_high_indeterminate_risk&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;never_sometimes_often&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;not_at_all_somewhat_very_much&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;not_yet_somewhat_very_much&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;definitionUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;ScoreOneIfAboveOne&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;contact&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;telecom&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;email&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;use&#34;</span>: <span style=color:#e6db74>&#34;work&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;info@mayjuun.com&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><p>The PlanDefinitions, at least for now, are all pre-constructed, not created on the fly. We have a PlanDefinition for each age group, and as part of the actions we include all of the Questionnaires that we want the patient/parent to complete. We also include the Measure that will be used to score all of the Questionnares. Lastly, we use a number of ValueSets as the answers to the Questionnaires, and this specifies which ValueSets will be needed.</p><h3 id=task>Task</h3><p>Now that we have the PlanDefinition, we can create the Task. The Task will include most of the information from the ServiceRequest and the PlanDefinition. The Task is our Questionnaire App interacts with, and it&rsquo;s what keeps track of the progress (you can even have sub-tasks, although we did not implement it for this workflow). An example task is below:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;requested&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;order&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;8b19a541-70a7-45dc-9bda-82194123915e&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;basedOn&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest/3e452ace-12c8-40a6-b18d-28c8075deb74&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;owner&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/2dceb6ad-e0be-4ca7-b622-0c57369ea5e2&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Guarantor&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;for&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/66232d8f-628b-4740-b7a5-a2e736e076f5&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Patient&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;requester&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fe1318a0-a2ec-4580-9369-4949fb9ad82b&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;input&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/4d324c81-164e-4191-ae19-c4eb2101c975&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/65c42602-98c6-44a6-9923-d27a1e54d317&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/74675baa-2481-409e-b743-aec18bcbf6ce&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/be1ccfa9-5e44-4869-8e55-7710829ad6c6&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/fc97fd8e-ad33-477e-b33e-dc3a90fb2eb2&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><p>As mentioned it is basically a summary of the ServiceRequest and PlanDefinition. It references both, includes the ordering Practitioner/Organization, the Owner is who is responsible to complete the questionnaires, and the &ldquo;for&rdquo; is the Patient. If the Patient is an adult, we still use this format to clarify that the Patient is both completing the Questionnaires and is the subject of them. It also of course includes all of the Questionnaires, Measures, and ValueSets as actions.</p><h3 id=completed-task>Completed Task</h3><p>A completed Task is an updated version of the Task above. Note, we use the <code>"status"</code> as <code>requested</code>, <code>in-progress</code>, or <code>completed</code> to keep track of what stage the Task is in. In addition, the completed Task now has outputs of QuestionnaireResponses and a MeasureReport:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;completed&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;intent&#34;</span>: <span style=color:#e6db74>&#34;order&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;8b19a541-70a7-45dc-9bda-82194123915e&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;priority&#34;</span>: <span style=color:#e6db74>&#34;routine&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;basedOn&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;ServiceRequest/3e452ace-12c8-40a6-b18d-28c8075deb74&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;instantiatesUri&#34;</span>: <span style=color:#e6db74>&#34;PlanDefinition/4840239b-4da6-4fa6-b8d6-4a1b1a7140af&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;owner&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;RelatedPerson/2dceb6ad-e0be-4ca7-b622-0c57369ea5e2&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Guarantor&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;for&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/66232d8f-628b-4740-b7a5-a2e736e076f5&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;Patient&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;requester&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Organization/fe1318a0-a2ec-4580-9369-4949fb9ad82b&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;input&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/f892b6b0-b908-4fc2-b73f-9890b9c1c06a&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/4d324c81-164e-4191-ae19-c4eb2101c975&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/65c42602-98c6-44a6-9923-d27a1e54d317&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/74675baa-2481-409e-b743-aec18bcbf6ce&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/be1ccfa9-5e44-4869-8e55-7710829ad6c6&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;Measure/fc97fd8e-ad33-477e-b33e-dc3a90fb2eb2&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/93e22d5d-3751-4c83-b387-d824cb285e53&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/30015939-e327-43e6-aa86-a5ea2c3657e2&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/97cbfa42-d4c8-4066-b5b2-0b9e4e2f151a&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/895847ed-4d51-4d8f-8508-88937861d60b&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/86c4b28b-9c35-4c1a-8372-4e0b0f21c286&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/4adaf60d-2cf1-4a33-a8aa-74fb5147a50b&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;ValueSet&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/resource-types&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;ValueSet/ef975cd6-a08e-48d2-b844-f7df07984ee1&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;output&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/bc7b7824-480d-4efb-ab58-3964d9840916&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/fb5d8b09-c765-4593-b01f-f0cb2e829040&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/9c40b031-9252-4909-8960-1871b64f6b60&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/7c37e26d-dcda-4cc2-83dc-9a601f8e427f&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;collect-information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Collect Information&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;QuestionnaireResponse/15ed2cfa-4e09-4b96-90b7-004209c2a8bc&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                    {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;measureReport&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/CodeSystem/temp&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                ]
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueUri&#34;</span>: <span style=color:#e6db74>&#34;MeasureReport/3a140d2a-af23-4d8d-8e50-78978f69aa23&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><h3 id=measure>Measure</h3><p>This one was new for me. It&rsquo;s certainly not necessary, but I like it because it allowed me to score all of the Questionnaires in a single place. I could have created and Observation, but that would be one for each Questionnaire, and I really wanted them grouped together since the Questionnaires are being grouped together. I can&rsquo;t include my full fhirpath expressions because there&rsquo;s some proprietary information in them, but I&rsquo;ve included enough that I think you can get the idea.</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Measure&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;id&#34;</span>: <span style=color:#e6db74>&#34;a1c7e19c-170c-4381-b89d-541bc04c1686&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/Measure/score_nat_6_8_months&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;score_nat_6_8_months&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;title&#34;</span>: <span style=color:#e6db74>&#34;Score Measure for NJinCK Needs Assessment 6-8 months&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;publisher&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;contact&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;name&#34;</span>: <span style=color:#e6db74>&#34;MayJuun LLC&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;telecom&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;email&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#e6db74>&#34;info@mayjuun.com&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;use&#34;</span>: <span style=color:#e6db74>&#34;work&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring rubric for total and subscores for all modules for 6-8 months, along with the total Social Complexity Score&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;scoring&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/measure-scoring&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;continuous-variable&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Continuous Variable&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;type&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://terminology.hl7.org/CodeSystem/measure-type&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;patient-reported-outcome&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Patient Reported Outcomes&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ],
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;group&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring for Developmental Milestones: 6-8 months&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/d2e03a84-6564-49cd-adee-fdee3b2c3f73&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;population&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 6-8 months&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;criteria&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.where(linkId.contains(&#39;/milestones&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;Scoring for PSC-17: Baby&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>          {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire/b2046600-e808-434a-9442-83717a088cbb&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;population&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Irritability Subscore&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;criteria&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.item.where(linkId.contains(&#39;irritability&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;description&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;criteria&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;language&#34;</span>: <span style=color:#e6db74>&#34;text/fhirpath&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;expression&#34;</span>: <span style=color:#e6db74>&#34;entry.resource.ofType(QuestionnaireResponse).item.item.item.where(linkId.contains(&#39;/psc_baby/&#39;)).answer.valueCoding.extension.value.aggregate($this + $total, 0)&#34;</span>
+</span></span><span style=display:flex><span>          }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><p>This one needs a little explanation. The top is obviously just the metadata, the key piece here is the group. The group is a list that I&rsquo;ve used to contain all scores and subscores for a single questionnaire. The <code>group.code.coding.code</code> is the path to the Questionnaire that the scoring is applied against. I&rsquo;ve then used the population as a list of each score or subscore that apply to a single questionnaire. For instance, the PSC-17 Baby questionnaire has both a total score and an irritability score. These are both from the same questionnaire, but different responses are used for the result. These are detailed in the FHIRPath expressions.</p><h3 id=measurereport>MeasureReport</h3><p>The MeasureReport in turn mirrors the Measure and includes the scores, along with some other pertinent information (although this will obviously vary based on your scoring and the questionnaire). An example for something like the Measure above could look like this:</p><div class=highlight-wrapper><div class=highlight-before>json</div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;MeasureReport&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;complete&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;measure&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/Measure/score_nat_6_8_months&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;subject&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;reference&#34;</span>: <span style=color:#e6db74>&#34;Patient/becebba3-813d-4585-89f9-f74c89d548fb&#34;</span>
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;individual&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;group&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Scoring for Developmental Milestones: 6-8 months&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;stratifier&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;stratum&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;component&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                      {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;low-risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;low risk&#34;</span>
+</span></span><span style=display:flex><span>                      }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                  },
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;value&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                      {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;low-risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;low risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/ValueSet/low_medium_high_risk&#34;</span>
+</span></span><span style=display:flex><span>                      }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                  }
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 23-28 months&#34;</span>
+</span></span><span style=display:flex><span>                  },
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;value&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Total Score for Developmental Milestones: 23-28 months&#34;</span>
+</span></span><span style=display:flex><span>                  }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>              ],
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>14</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>          ]
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>     {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Scoring for PSC-17: Baby&#34;</span>
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;stratifier&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;stratum&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>8</span>
+</span></span><span style=display:flex><span>              },
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;value&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Irritability Subscore&#34;</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>          ]
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;stratum&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;component&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                      {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;At Risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;At Risk&#34;</span>
+</span></span><span style=display:flex><span>                      }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                  },
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;value&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>                      {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;high-risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;high risk&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;mayjuun.com/fhir/ValueSet/low_medium_high_risk&#34;</span>
+</span></span><span style=display:flex><span>                      }
+</span></span><span style=display:flex><span>                    ]
+</span></span><span style=display:flex><span>                  }
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;code&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>
+</span></span><span style=display:flex><span>                  },
+</span></span><span style=display:flex><span>                  <span style=color:#f92672>&#34;value&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;PSC-17: Baby, Total Score&#34;</span>
+</span></span><span style=display:flex><span>                  }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>              ],
+</span></span><span style=display:flex><span>              <span style=color:#f92672>&#34;measureScore&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;value&#34;</span>: <span style=color:#ae81ff>14</span>
+</span></span><span style=display:flex><span>              }
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>          ]
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ]
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>  ]
+</span></span><span style=display:flex><span>}</span></span></code></pre></div></div><p>Aaaannnnndddd&mldr;scene. So that&rsquo;s our current workflow. I&rsquo;m obviously open to suggestions or pointers if any of this is out of sync with what the community thinks it should be. But I wanted to offer it as an example because there are not a lot of them out there at this time.</p></div></div></div></div></section><section id=call-to-action><div class=container><div class=row><div class=col-md-12><div class=block><h2 class="title wow fadeInDown" data-wow-delay=.3s data-wow-duration=500ms>Want to Learn More?</h1><a href=../../contact class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=.7s data-wow-duration=500ms>Contact Us</a></div></div></div></div></section><footer id=footer><div class=container><div class="row content-justify-between"><p class=copyright>Website Content: Copyright
+<span><script>document.write((new Date).getFullYear())</script></span>by MayJuun. Contact us: <a href=mailto:info@mayjuun.com>info@mayjuun.com</a><br>Website Theme: Copyright 2020. Original design by <a href=http://www.themefisher.com target=_blank>Themefisher</a> under <a href=https://github.com/themefisher/timer-hugo/blob/master/LICENSE target=_blank>MIT license</a>, modified by MayJuun<br>FHIR® is a registered trademark of Health Level Seven International (HL7) and its use does not constitute an endorsement of products by HL7®<div class="col copyright"><a href=https://mayjuun.com/policies target=_self>Policies</a>
+~ <a href=https://mayjuun.com/policies/cookie-policy/ target=_self>Cookie Policy</a>
+~ <a href=https://mayjuun.com/policies/disclaimer/ target=_self>Disclaimer</a>
+~ <a href=https://mayjuun.com/policies/eula/ target=_self>EULA</a>
+~ <a href=https://mayjuun.com/policies/privacy-notice/ target=_self>Privacy Notice</a>
+~ <a href=https://mayjuun.com/policies/terms-and-conditions/ target=_self>Terms and Conditions</a></div></p></div></div></footer><script src=https://mayjuun.com/plugins/jQurey/jquery.min.js></script>
+<script src=https://mayjuun.com/plugins/form-validation/jquery.form.js></script>
+<script src=https://mayjuun.com/plugins/form-validation/jquery.validate.min.js></script>
+<script src=https://mayjuun.com/plugins/slick/slick.min.js></script>
+<script src=https://mayjuun.com/plugins/bootstrap/bootstrap.min.js></script>
+<script src=https://mayjuun.com/plugins/wow-js/wow.min.js></script>
+<script src=https://mayjuun.com/plugins/slider/slider.js></script>
+<script src=https://mayjuun.com/plugins/facncybox/jquery.fancybox.js></script>
+<script src=https://mayjuun.com/js/script.min.js></script>
+<script>(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-50100304-2','auto'),ga('send','pageview')</script></body></html>

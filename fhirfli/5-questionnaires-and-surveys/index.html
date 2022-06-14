@@ -1,23 +1,23 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta charset=utf-8><meta name=description content="MayJuun: Less Clicking, More Doctoring"><meta name=author content="MayJuun"><meta name=generator content="Hugo 0.83.1"><meta name=format-detection content="telephone=no"><meta name=viewport content="width=device-width,initial-scale=1"><title>Questionnaires and Surveys</title><link rel=icon href=https://mayjuun.com/images/favicon-1.ico><link rel=stylesheet href=https://mayjuun.com/plugins/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/ionicons/ionicons.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/animate-css/animate.css><link rel=stylesheet href=https://mayjuun.com/plugins/slider/slider.css><link rel=stylesheet href=https://mayjuun.com/plugins/slick/slick.css><link rel=stylesheet href=https://mayjuun.com/plugins/facncybox/jquery.fancybox.css><link rel=stylesheet href=https://mayjuun.com/plugins/hover/hover-min.css><link rel=stylesheet href=https://mayjuun.com/css/style.min.css integrity media=screen></head><body><section class="top-bar animated-header"><div class=container><div class=row><div class=col-lg-12><nav class="navbar navbar-expand-md navbar-light bg-light"><a class=navbar-brand href=https://mayjuun.com/><img src=https://mayjuun.com/images/logo-line.png alt=logo class=logo-box></a>
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=content-security-policy content="upgrade-insecure-requests; block-all-mixed-content; default-src 'self'; child-src 'self'; font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; form-action 'self'; frame-src 'self' https://app.termly.io/ https://fhirpath.mayjuun.com; img-src 'self' 'unsafe-inline' data: w3.org/svg/2000; object-src 'none'; style-src 'self' https://fonts.googleapis.com https://www.google-analytics.com 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://app.termly.io/embed-policy.min.js https://fhirpath.mayjuun.com https://fonts.googleapis.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com;"><meta charset=utf-8><meta name=description content="MayJuun: Less Clicking, More Doctoring"><meta name=author content="MayJuun"><meta name=generator content="Hugo 0.100.2"><meta name=format-detection content="telephone=no"><meta name=viewport content="width=device-width,initial-scale=1"><title>Questionnaires and Surveys</title><link rel=icon href=https://mayjuun.com/images/favicon-1.ico><link rel=stylesheet href=https://mayjuun.com/plugins/bootstrap/bootstrap.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/ionicons/ionicons.min.css><link rel=stylesheet href=https://mayjuun.com/plugins/animate-css/animate.css><link rel=stylesheet href=https://mayjuun.com/plugins/slider/slider.css><link rel=stylesheet href=https://mayjuun.com/plugins/slick/slick.css><link rel=stylesheet href=https://mayjuun.com/plugins/facncybox/jquery.fancybox.css><link rel=stylesheet href=https://mayjuun.com/plugins/hover/hover-min.css><link rel=stylesheet href=https://mayjuun.com/css/style.min.css integrity media=screen></head><body><section class="top-bar animated-header"><div class=container><div class=row><div class=col-lg-12><nav class="navbar navbar-expand-md navbar-light bg-light"><a class=navbar-brand href=https://mayjuun.com/><img src=https://mayjuun.com/images/logo-line.png alt=logo class=logo-box></a>
 <button class=navbar-toggler type=button data-toggle=collapse data-target=#navigation aria-controls=navigation aria-expanded=false aria-label="Toggle navigation">
 <span class=navbar-toggler-icon></span></button><div class="collapse navbar-collapse" id=navigation><ul class="navbar-nav ml-auto"><li class=nav-item><a class=nav-link href=https://mayjuun.com/>Home</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/blog>Meta-Blog</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/fhirfli>FHIR-FLI</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/portfolio>App Portfolio</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/about>About</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/service>Services</a></li><li class=nav-item><a class=nav-link href=https://mayjuun.com/contact>Contact</a></li></div></nav></div></div></div></section><section class=global-page-header><div class=container><div class=row><div class=col-md-12><div class=block><h2>Questionnaires and Surveys</h2><div class=portfolio-meta><span>Sunday, May 16, 2021</span>|
 <span>Tags:
-FHIR®, Questionnaire, Survey, Flutter, Prapare</span></div></div></div></div></div></section><section class=single-post><div class=container><div class=row><div class=col-md-12><div class=post-content><h2 id=fhir-questionnaire>FHIR® Questionnaire</h2><p>As usual, the FHIR® documentation, while complete, is difficult to get through in order to understand how to structure surveys. John has created a really nice demo app to render the Prapare® Survey specifically (<a href=https://github.com/FireJuun/prapare)>https://github.com/FireJuun/prapare)</a>. There is also now a very nice dynamic renderer package called <a href=https://pub.dev/packages/faiadashu>Faiadashu</a>, thanks <a href=https://github.com/tiloc>Tilo</a>!</p><p>I&rsquo;m also working on creating surveys from a REDCap library, and also from a spreadsheet, but those are works in progress. However, in the meantime, I thought I would step through how to format a questionnaire in FHIR®.</p><p>It is helpful (although not complete) to review the FHIR® Questionnaire Resource. There is also a nice form builder that, while occasionally inaccurate (in my opinion) is still really helpful. You can find it here <a href=https://lhcformbuilder.nlm.nih.gov/>https://lhcformbuilder.nlm.nih.gov/</a>. As usual however, for automated tasks, there are some nuances that I think it misses. So, in order to truly understand Questionnaires, we&rsquo;re going to step through how to do it by hand. That way, as with so many things, you can use the above tool for the first pass, and then go in and correct any details as you feel you need to.</p><p>I always think better when I see an example. So, while this is going to be a long journey, we&rsquo;re going to walk through our proposal on how to properly code the PRAPARE Survey. The survey is an acronym for Protocol for Responding to and Assessing Patients' Assets, Risks, and Experiences. (main website: <a href=https://www.nachc.org/research-and-data/prapare/)>https://www.nachc.org/research-and-data/prapare/)</a>. This is a survey designed to assess social determinants of health (SDOH), an area that has traditionally not been a major focus, but has come into the spotlight as we understand better how much these effect a person&rsquo;s health (answer: more than almost anything else).</p><p>So, once again, we&rsquo;re going to step through how we code this survey. I expect this to be long, simply because there&rsquo;s a lot of code involved, even just to design something simple. So we&rsquo;re going to start with basic layout of the Questionnaire.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
-  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire&#34;</span>,
-  <span style=color:#f92672>&#34;meta&#34;</span>: {
-    <span style=color:#f92672>&#34;profile&#34;</span>: [
-      <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire|2.7&#34;</span>
-    ],
-    <span style=color:#f92672>&#34;tag&#34;</span>: [
-      {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;lformsVersion: 25.1.3&#34;</span>
-      }
-    ]
-  },
-  <span style=color:#f92672>&#34;item&#34;</span>: []
-}
-</code></pre></div><p>So, pretty simple. Status can have values of draft, active, retired, or unknown. The other fields are all typical FHIR® fields so I won&rsquo;t go into them. Item is the real focus of what we&rsquo;re going to do. As we see it&rsquo;s a list and all of the items in the actual Questionnaire are going to be placed here.</p><p>Again, refer to the FHIR® documentation for the full explanation of the spec, I&rsquo;m only going to cover what I feel is important, specifically in the context of the PRAPARE Survey (if you want to go nuts, checkout the SDC Home Page, Advanced form rendering, Advanced form behavior and calculation, and Adaptive forms). In Item, there are a number of fields (I refer to them as fields, the proper term is probably attributes if we&rsquo;re using an object oriented perspective), the two that are required are linkId and type.</p><p>linkId: a unique id for that item in the Questionnaire. While this is not stated specifically in the spec, they seem to come in two varieties, separated by &ldquo;.&rdquo; or &ldquo;/&rdquo;. The &ldquo;.&rdquo; ends up looking like an ip adress: 1.1.2, while the &ldquo;/&rdquo; ends up looking like a directory of loinc codes (because often they are): /93043-8/93035-4/93044-9. I found this in a presentation (but I couldn&rsquo;t find it on the HL7 page) these also appear to correspond to depth. Thus, for 1.1.2, this could be the first group, within that first group the first question, and of the predefined answers to that question. Also, speaking of loinc codes, it&rsquo;s unfortunate that the display text for some of the loinc codes are not actually the same as the text for the question they refer to. ToDo: ensure loinc text is correct.</p><pre><code>Group 1 (93043-8)  
+FHIR®, Questionnaire, Survey, Flutter, Prapare</span></div></div></div></div></div></section><section class=single-post><div class=container><div class=row><div class=col-md-12><div class=post-content><h2 id=fhir-questionnaire>FHIR® Questionnaire</h2><p>As usual, the FHIR® documentation, while complete, is difficult to get through in order to understand how to structure surveys. John has created a really nice demo app to render the Prapare® Survey specifically (<a href=https://github.com/FireJuun/prapare)>https://github.com/FireJuun/prapare)</a>. There is also now a very nice dynamic renderer package called <a href=https://pub.dev/packages/faiadashu>Faiadashu</a>, thanks <a href=https://github.com/tiloc>Tilo</a>!</p><p>I&rsquo;m also working on creating surveys from a REDCap library, and also from a spreadsheet, but those are works in progress. However, in the meantime, I thought I would step through how to format a questionnaire in FHIR®.</p><p>It is helpful (although not complete) to review the FHIR® Questionnaire Resource. There is also a nice form builder that, while occasionally inaccurate (in my opinion) is still really helpful. You can find it here <a href=https://lhcformbuilder.nlm.nih.gov/>https://lhcformbuilder.nlm.nih.gov/</a>. As usual however, for automated tasks, there are some nuances that I think it misses. So, in order to truly understand Questionnaires, we&rsquo;re going to step through how to do it by hand. That way, as with so many things, you can use the above tool for the first pass, and then go in and correct any details as you feel you need to.</p><p>I always think better when I see an example. So, while this is going to be a long journey, we&rsquo;re going to walk through our proposal on how to properly code the PRAPARE Survey. The survey is an acronym for Protocol for Responding to and Assessing Patients&rsquo; Assets, Risks, and Experiences. (main website: <a href=https://www.nachc.org/research-and-data/prapare/)>https://www.nachc.org/research-and-data/prapare/)</a>. This is a survey designed to assess social determinants of health (SDOH), an area that has traditionally not been a major focus, but has come into the spotlight as we understand better how much these effect a person&rsquo;s health (answer: more than almost anything else).</p><p>So, once again, we&rsquo;re going to step through how we code this survey. I expect this to be long, simply because there&rsquo;s a lot of code involved, even just to design something simple. So we&rsquo;re going to start with basic layout of the Questionnaire.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;draft&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;resourceType&#34;</span>: <span style=color:#e6db74>&#34;Questionnaire&#34;</span>,
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;meta&#34;</span>: {
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;profile&#34;</span>: [
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire|2.7&#34;</span>
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;tag&#34;</span>: [
+</span></span><span style=display:flex><span>      {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;lformsVersion: 25.1.3&#34;</span>
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#f92672>&#34;item&#34;</span>: []
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>So, pretty simple. Status can have values of draft, active, retired, or unknown. The other fields are all typical FHIR® fields so I won&rsquo;t go into them. Item is the real focus of what we&rsquo;re going to do. As we see it&rsquo;s a list and all of the items in the actual Questionnaire are going to be placed here.</p><p>Again, refer to the FHIR® documentation for the full explanation of the spec, I&rsquo;m only going to cover what I feel is important, specifically in the context of the PRAPARE Survey (if you want to go nuts, checkout the SDC Home Page, Advanced form rendering, Advanced form behavior and calculation, and Adaptive forms). In Item, there are a number of fields (I refer to them as fields, the proper term is probably attributes if we&rsquo;re using an object oriented perspective), the two that are required are linkId and type.</p><p>linkId: a unique id for that item in the Questionnaire. While this is not stated specifically in the spec, they seem to come in two varieties, separated by &ldquo;.&rdquo; or &ldquo;/&rdquo;. The &ldquo;.&rdquo; ends up looking like an ip adress: 1.1.2, while the &ldquo;/&rdquo; ends up looking like a directory of loinc codes (because often they are): /93043-8/93035-4/93044-9. I found this in a presentation (but I couldn&rsquo;t find it on the HL7 page) these also appear to correspond to depth. Thus, for 1.1.2, this could be the first group, within that first group the first question, and of the predefined answers to that question. Also, speaking of loinc codes, it&rsquo;s unfortunate that the display text for some of the loinc codes are not actually the same as the text for the question they refer to. ToDo: ensure loinc text is correct.</p><pre tabindex=0><code>Group 1 (93043-8)  
     Question 1 (93035-4)
         Answer 1 (93044-8)
         Answer 2 (93044-9)
@@ -26,367 +26,381 @@ FHIR®, Questionnaire, Survey, Flutter, Prapare</span></div></div></div></div></
         Answer 1 (93044-6)
         Answer 2 (93044-5)
 -Group 2 (93043-9)...|
-</code></pre><p>type can be any of the following: group, display, boolean, decimal, integer, date, dateTime, time, string, text, url, choice, open-choice, attachment, reference, and quantity. These are mostly self explanatory, plus the official definitions are pretty good, so I won&rsquo;t redefine them here. So, how do we want to proceed. All of the representations I have seen for PRAPARE have the entire survey as a group, with sections nested beneath it (I think you could probably just start with the sections, but as this seems to be the standard, it&rsquo;s what we&rsquo;re going to go with). So the item list above will now look like the following:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>  <span style=color:#e6db74>&#34;item&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> [
-    {
-      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
-      <span style=color:#f92672>&#34;code&#34;</span>: [
-        {
-          <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93025-5&#34;</span>,
-          <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Protocol for Responding to and Assessing Patients&#39; Assets, Risks, and Experiences [PRAPARE]&#34;</span>,
-          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-        }
-      ],
-      <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-      <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93025-5&#34;</span>,
-      <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Protocol for Responding to and Assessing Patients&#39; Assets, Risks, and Experiences [PRAPARE]&#34;</span>,
-      <span style=color:#f92672>&#34;item&#34;</span>: []
-      }
-   ]
-</code></pre></div><h4 id=prapare-survey-sections>PRAPARE Survey Sections</h4><ol><li>Personal Characteristics</li><li>Family & Home</li><li>Money & Resources</li><li>Social and Emotional Health</li><li>Optional Additional Questions</li></ol><p>So for this item, we have again defined a linkId and type (as they are both required). We have specified that this item does not HAVE to be included in the data results (&ldquo;required&rdquo;). The code field is the corresponding concept in a terminology (in this case loinc - and also the linkId is the loinc code). The text is the text that could be displayed to the user (although this is up to the rendering software).</p><p>Within this item is another item. It is again a list, and this time we will need to refer to the PRAPARE questionnaire. We can see that it naturally structures itself in sections, Personal Characteristics, Family & Home, Money & Resources, Social and Emotional Health, and Optional Additional Questions. These are a natural fit for the group type. Below we can see how we define the first two of the above sections. (here is a list of the loinc codes).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93043-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Personal characteristics&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Personal characteristics&#34;</span>,
-    <span style=color:#f92672>&#34;item&#34;</span>: []
-}<span style=color:#960050;background-color:#1e0010>,</span>
-{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93042-0&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Family and home&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Family and home&#34;</span>,
-    <span style=color:#f92672>&#34;item&#34;</span>: []
-}
-</code></pre></div><table><thead><tr><th style=text-align:center>    Question Formats in FHIR®     </th><th style=text-align:center>Fhir AnswerOption Types</th></tr></thead><tbody><tr><td style=text-align:center>autocomplete</td><td style=text-align:center>valueCoding</td></tr><tr><td style=text-align:center>drop-down</td><td style=text-align:center>valueInteger</td></tr><tr><td style=text-align:center>check-box</td><td style=text-align:center>valueDate</td></tr><tr><td style=text-align:center>lookup</td><td style=text-align:center>valueTime</td></tr><tr><td style=text-align:center>radio-button</td><td style=text-align:center>valueString</td></tr><tr><td style=text-align:center>slider</td><td style=text-align:center>valueReference</td></tr><tr><td style=text-align:center>spinner</td><td></td></tr><tr><td style=text-align:center>text-box</td><td></td></tr></tbody></table><p>So far we have been pretty generic with what we&rsquo;ve done so far, and can easily be applied to many questionnaires. For the next level down, however, we will need to take a deep dive into the PRAPARE questionnaire as we discover how to properly represent the individual questions.</p><p>I think I&rsquo;m just going to post the entire question code and step through it. For the type, we have choice. Officially this is defined as: Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or via the valueset referenced in the answerValueSet property) as an answer (valueCoding). For us that means that there will be a list of answers that will be represented (as opposed to a free-text answer). We have an extension that defines in what format that question should be represented. (the links below work, but are not release specific - so if you want stu3 or dstu2 you&rsquo;ll have to go looking for them). the options are: autocomplete, drop-down, check-box, lookup, radio-button, slider, spinner, and text-box.</p><p>For this specific question, most representations have drop-down, but we feel that radio-button better represents the original survey. The linkId is the combination of the section (group) code and the individual question code. For a choice, it allows both a list of answerOption or a valueSet. The latter can provide more detailed control, but is more complicated. For this question we don&rsquo;t need it, and will stick with answerOption. As we are using a codified set, we use valueCoding, along with the values below (again, all loinc). If it is not a predefined system, you can also choose valueInteger, valueDate, valueTime, valueString, or valueReference.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;56051-6&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Are you Hispanic or Latino?&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;extension&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl&#34;</span>,
-        <span style=color:#f92672>&#34;valueCodeableConcept&#34;</span>: {
-        <span style=color:#f92672>&#34;coding&#34;</span>: [
-            {
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/questionnaire-item-control&#34;</span>,
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;radio-button&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Radio button&#34;</span>
-            }
-        ],
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Radio button&#34;</span>
-        }
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/56051-6&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Are you Hispanic or Latino?&#34;</span>,
-    <span style=color:#f92672>&#34;answerOption&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
-        }
-    }
-    ]
-}<span style=color:#960050;background-color:#1e0010>,</span>
-</code></pre></div><p>For question 2 we start to get a little more complicated. It is very similar to the above question in terms of setup and answerOptions. One smaller difference is that we have &ldquo;repeats&rdquo;: true. This means that multiple answers can be given for this question. FHIR® specifically states that this may mean that the question itself is repeated, with a different answer each time, OR it can mean that multiple answers can be selected for a single question (we generally prefer the latter). However, the main difference with this question is that at the end we have a child item.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;32624-9&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Which race(s) are you? Check all that apply.&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;extension&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl&#34;</span>,
-        <span style=color:#f92672>&#34;valueCodeableConcept&#34;</span>: {
-        <span style=color:#f92672>&#34;coding&#34;</span>: [
-            {
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/questionnaire-item-control&#34;</span>,
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;check-box&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Check box&#34;</span>
-            }
-        ],
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Check box&#34;</span>
-        }
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;repeats&#34;</span>: <span style=color:#66d9ef>true</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Which race(s) are you? Check all that apply.&#34;</span>,
-    <span style=color:#f92672>&#34;answerOption&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA6156-9&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Asian&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA14045-1&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Native Hawaiian&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30187-1&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Pacific Islander&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA14042-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Black/African American&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA4457-3&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;White&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA4-4&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;American Indian/Alaskan Native&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueString&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>
-        }
-    },
-    {
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
-        }
-    }
-    ],
-    <span style=color:#f92672>&#34;item&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9/LA46-8&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Please write&#34;</span>,
-        <span style=color:#f92672>&#34;enableWhen&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;answerCoding&#34;</span>: {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>
-            },
-            <span style=color:#f92672>&#34;question&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9&#34;</span>,
-            <span style=color:#f92672>&#34;operator&#34;</span>: <span style=color:#e6db74>&#34;=&#34;</span>
-        }
-        ],
-        <span style=color:#f92672>&#34;enableBehavior&#34;</span>: <span style=color:#e6db74>&#34;all&#34;</span>
-    }
-    ]
-}<span style=color:#960050;background-color:#1e0010>,</span>
-</code></pre></div><p>We have included this nested child-item because when we refer to the original survey, we see that if the user selects &ldquo;Other&rdquo; they are given the opportunity to provide a free-text answer. So in order to give this option, our child-item is of &ldquo;type&rdquo;: &ldquo;string&rdquo;, but isn&rsquo;t required. The linkId is as for other items, and then the text to display with the item. The logic comes from the enableWhen field. We have specified that for the question /93043-8/32624-9, if the answerCoding is equal (defined by the operator) to the code specified (LA46-8). Instead of answerCoding, you can also specify answer[x] (where x is any of the types that are allowed in answers). enableBehavior may be all or any. This specifies that the item should be shown only if all of the conditions specified are true or if any are true.</p><p>Question 3 and Question 4 in the survey are almost identical to question 1 in Figure 4.</p><p>Question 5 is simply a free-text field. In some versions of the survey they do seem to offer choices for this answer, but in the original, it is simply a free text. We have therefore chosen to represent it as follows:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;text&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;54899-0&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;What language are you most comfortable speaking?&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/54899-0&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;What language are you most comfortable speaking?&#34;</span>
-}
-</code></pre></div><p>So there was some discussion in our group about the best way to render Question 6. After discussion we decided that we think the best way to do it is to define it as a question with a integer response, but with a nested sub-item for if the user chooses not to answer the question. It looks like the following:</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;integer&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;63512-8&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;How many family members, including yourself, do you currently live with?&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;extension&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-unit&#34;</span>,
-        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;{#}&#34;</span>
-        }
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/63512-8&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;How many family members, including yourself, do you currently live with?&#34;</span>,
-    <span style=color:#f92672>&#34;item&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;boolean&#34;</span>,
-        <span style=color:#f92672>&#34;code&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
-        }
-        ],
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
-    }
-    ]
-}<span style=color:#960050;background-color:#1e0010>,</span>
-</code></pre></div><p>Question 7 and Question 8 are the same format as multiple question above.</p><p>Question 9 has what appear to be two free text fields for one question. As I&rsquo;ve discovered, some of Questionnaire (like much of FHIR) seems to be the choice of the developers, coders, renderers, etc. We are going to try and keep this as generic as possible to be as broadly applicable as possible. Currently, we are just going to list it as a single. However, in the future we may look into pulling it as a reference from the Patient&rsquo;s address. (Also, yes, the incorrect grammar of the question bothers me too).</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;56799-0&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;What address do you live at?&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;What address do you live at?&#34;</span>,
-    <span style=color:#f92672>&#34;item&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0/street&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Street:&#34;</span>
-    },
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0/city_state_zip&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;City, State, Zipcode:&#34;</span>
-    }
-    ]
-}
-</code></pre></div><p>Questions 10-13 are all similar to questions we&rsquo;ve already discussed, so I won&rsquo;t belabor those points.</p><p>At first glance 14 appears complicated. It is slightly, but it is really just deeper nests of the kinds of questions that we&rsquo;ve already encountered. The group starts out similarly, coding, systems, text, linkId, etc. The first six items we&rsquo;ve seen similar versions before (Food, Utilities, Clothing, Child care, Medical, and Phone), and so I&rsquo;ve only included Phone below. The option for Other is also similar to how we&rsquo;ve done before, where there is display logic for a free-text box when this is chosen. Lastly, we&rsquo;ve included a boolean question, which we haven&rsquo;t used before. There could be a discussion about whether or not to include the formatting (should this also be displayed as a radio-button, or perhaps a check-box?). For now we&rsquo;re going to leave it to the renderer, but feel free to add the format as an extension to your survey if you feel it is appropriate.</p><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json>{
-    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
-    <span style=color:#f92672>&#34;code&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93031-3&#34;</span>,
-        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;In the past year, have you or any family members you live with been unable to get any of the following when it was really needed?&#34;</span>,
-        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-    }
-    ],
-    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3&#34;</span>,
-    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;In the past year, have you or any family members you live with been unable to get any of the following when it was really needed?&#34;</span>,
-    <span style=color:#f92672>&#34;item&#34;</span>: [
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
-        <span style=color:#f92672>&#34;code&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30128-5&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Phone&#34;</span>,
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-        }
-        ],
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA30128-5&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Phone&#34;</span>,
-        <span style=color:#f92672>&#34;answerOption&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
-            }
-        },
-        {
-            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
-            }
-        }
-        ]
-    },
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
-        <span style=color:#f92672>&#34;code&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>,
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-        }
-        ],
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>,
-        <span style=color:#f92672>&#34;answerOption&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
-            }
-        },
-        {
-            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
-            }
-        }
-        ],
-        <span style=color:#f92672>&#34;item&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
-            <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
-            <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8/LA33-6&#34;</span>,
-            <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Please write&#34;</span>,
-            <span style=color:#f92672>&#34;enableWhen&#34;</span>: [
-            {
-                <span style=color:#f92672>&#34;answerCoding&#34;</span>: {
-                <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>
-                },
-                <span style=color:#f92672>&#34;question&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8&#34;</span>,
-                <span style=color:#f92672>&#34;operator&#34;</span>: <span style=color:#e6db74>&#34;=&#34;</span>
-            }
-            ],
-            <span style=color:#f92672>&#34;enableBehavior&#34;</span>: <span style=color:#e6db74>&#34;all&#34;</span>
-        }
-        ]
-    },
-    {
-        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;boolean&#34;</span>,
-        <span style=color:#f92672>&#34;code&#34;</span>: [
-        {
-            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
-            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>,
-            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
-        }
-        ],
-        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
-        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA30122-8&#34;</span>,
-        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
-    }
-    ]
-}<span style=color:#960050;background-color:#1e0010>,</span>
-</code></pre></div><p>Question 15 is similar to previous questions. Although please note that multiple answers are allowed, so we specified a check-box format.</p><p>Both of the Social and emotional health questions, as well as all questions from the Optional section are simple choice responses. I will note that currently for the final question, there is no known coding for the response &ldquo;I have not had a partner in the past year&rdquo;.</p><p>So there you have it. This was our process of creating the PRAPARE questionnaire in FHIR®. We hope you found it useful, and feedback is always welcome on how we can improve.</p></div></div></div></div></section><section id=call-to-action><div class=container><div class=row><div class=col-md-12><div class=block><h2 class="title wow fadeInDown" data-wow-delay=.3s data-wow-duration=500ms>Want to Learn More?</h1><a href=/contact class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=.7s data-wow-duration=500ms>Contact Us</a></div></div></div></div></section><footer id=footer><div class=container><div class="row content-justify-between"><p class=copyright>Website Content: Copyright
-<span><script>document.write((new Date).getFullYear())</script></span>by MayJuun. Contact us: <a href=mailto:info@mayjuun.com>info@mayjuun.com</a><br>Website Theme: Copyright 2020. Original design by <a href=http://www.themefisher.com target=_blank>Themefisher</a> under <a href=https://github.com/themefisher/timer-hugo/blob/master/LICENSE target=_blank>MIT license</a>, modified by MayJuun<br>FHIR® is a registered trademark of Health Level Seven International (HL7) and its use does not constitute an endorsement of products by HL7®</p></div></div></footer><script src=https://mayjuun.com/plugins/jQurey/jquery.min.js></script><script src=https://mayjuun.com/plugins/form-validation/jquery.form.js></script><script src=https://mayjuun.com/plugins/form-validation/jquery.validate.min.js></script><script src=https://mayjuun.com/plugins/slick/slick.min.js></script><script src=https://mayjuun.com/plugins/bootstrap/bootstrap.min.js></script><script src=https://mayjuun.com/plugins/wow-js/wow.min.js></script><script src=https://mayjuun.com/plugins/slider/slider.js></script><script src=https://mayjuun.com/plugins/facncybox/jquery.fancybox.js></script><script src=https://mayjuun.com/js/script.min.js></script><script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-50100304-2','auto'),ga('send','pageview')</script></body></html>
+</code></pre><p>type can be any of the following: group, display, boolean, decimal, integer, date, dateTime, time, string, text, url, choice, open-choice, attachment, reference, and quantity. These are mostly self explanatory, plus the official definitions are pretty good, so I won&rsquo;t redefine them here. So, how do we want to proceed. All of the representations I have seen for PRAPARE have the entire survey as a group, with sections nested beneath it (I think you could probably just start with the sections, but as this seems to be the standard, it&rsquo;s what we&rsquo;re going to go with). So the item list above will now look like the following:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>  <span style=color:#e6db74>&#34;item&#34;</span><span style=color:#960050;background-color:#1e0010>:</span> [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93025-5&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Protocol for Responding to and Assessing Patients&#39; Assets, Risks, and Experiences [PRAPARE]&#34;</span>,
+</span></span><span style=display:flex><span>          <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>      ],
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93025-5&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Protocol for Responding to and Assessing Patients&#39; Assets, Risks, and Experiences [PRAPARE]&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#f92672>&#34;item&#34;</span>: []
+</span></span><span style=display:flex><span>      }
+</span></span><span style=display:flex><span>   ]
+</span></span></code></pre></div><h4 id=prapare-survey-sections>PRAPARE Survey Sections</h4><ol><li>Personal Characteristics</li><li>Family & Home</li><li>Money & Resources</li><li>Social and Emotional Health</li><li>Optional Additional Questions</li></ol><p>So for this item, we have again defined a linkId and type (as they are both required). We have specified that this item does not HAVE to be included in the data results (&ldquo;required&rdquo;). The code field is the corresponding concept in a terminology (in this case loinc - and also the linkId is the loinc code). The text is the text that could be displayed to the user (although this is up to the rendering software).</p><p>Within this item is another item. It is again a list, and this time we will need to refer to the PRAPARE questionnaire. We can see that it naturally structures itself in sections, Personal Characteristics, Family & Home, Money & Resources, Social and Emotional Health, and Optional Additional Questions. These are a natural fit for the group type. Below we can see how we define the first two of the above sections. (here is a list of the loinc codes).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93043-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Personal characteristics&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Personal characteristics&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: []
+</span></span><span style=display:flex><span>}<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93042-0&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Family and home&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Family and home&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: []
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><table><thead><tr><th style=text-align:center>    Question Formats in FHIR®     </th><th style=text-align:center>Fhir AnswerOption Types</th></tr></thead><tbody><tr><td style=text-align:center>autocomplete</td><td style=text-align:center>valueCoding</td></tr><tr><td style=text-align:center>drop-down</td><td style=text-align:center>valueInteger</td></tr><tr><td style=text-align:center>check-box</td><td style=text-align:center>valueDate</td></tr><tr><td style=text-align:center>lookup</td><td style=text-align:center>valueTime</td></tr><tr><td style=text-align:center>radio-button</td><td style=text-align:center>valueString</td></tr><tr><td style=text-align:center>slider</td><td style=text-align:center>valueReference</td></tr><tr><td style=text-align:center>spinner</td><td></td></tr><tr><td style=text-align:center>text-box</td><td></td></tr></tbody></table><p>So far we have been pretty generic with what we&rsquo;ve done so far, and can easily be applied to many questionnaires. For the next level down, however, we will need to take a deep dive into the PRAPARE questionnaire as we discover how to properly represent the individual questions.</p><p>I think I&rsquo;m just going to post the entire question code and step through it. For the type, we have choice. Officially this is defined as: Question with a Coding drawn from a list of possible answers (specified in either the answerOption property, or via the valueset referenced in the answerValueSet property) as an answer (valueCoding). For us that means that there will be a list of answers that will be represented (as opposed to a free-text answer). We have an extension that defines in what format that question should be represented. (the links below work, but are not release specific - so if you want stu3 or dstu2 you&rsquo;ll have to go looking for them). the options are: autocomplete, drop-down, check-box, lookup, radio-button, slider, spinner, and text-box.</p><p>For this specific question, most representations have drop-down, but we feel that radio-button better represents the original survey. The linkId is the combination of the section (group) code and the individual question code. For a choice, it allows both a list of answerOption or a valueSet. The latter can provide more detailed control, but is more complicated. For this question we don&rsquo;t need it, and will stick with answerOption. As we are using a codified set, we use valueCoding, along with the values below (again, all loinc). If it is not a predefined system, you can also choose valueInteger, valueDate, valueTime, valueString, or valueReference.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;56051-6&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Are you Hispanic or Latino?&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;extension&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCodeableConcept&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/questionnaire-item-control&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;radio-button&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Radio button&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Radio button&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/56051-6&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Are you Hispanic or Latino?&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;answerOption&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span></code></pre></div><p>For question 2 we start to get a little more complicated. It is very similar to the above question in terms of setup and answerOptions. One smaller difference is that we have &ldquo;repeats&rdquo;: true. This means that multiple answers can be given for this question. FHIR® specifically states that this may mean that the question itself is repeated, with a different answer each time, OR it can mean that multiple answers can be selected for a single question (we generally prefer the latter). However, the main difference with this question is that at the end we have a child item.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;32624-9&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Which race(s) are you? Check all that apply.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;extension&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-itemControl&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCodeableConcept&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;coding&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/questionnaire-item-control&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;check-box&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Check box&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Check box&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;repeats&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Which race(s) are you? Check all that apply.&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;answerOption&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA6156-9&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Asian&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA14045-1&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Native Hawaiian&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30187-1&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Pacific Islander&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA14042-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Black/African American&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA4457-3&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;White&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA4-4&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;American Indian/Alaskan Native&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueString&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9/LA46-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Please write&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;enableWhen&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;answerCoding&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;question&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/32624-9&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;operator&#34;</span>: <span style=color:#e6db74>&#34;=&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;enableBehavior&#34;</span>: <span style=color:#e6db74>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span></code></pre></div><p>We have included this nested child-item because when we refer to the original survey, we see that if the user selects &ldquo;Other&rdquo; they are given the opportunity to provide a free-text answer. So in order to give this option, our child-item is of &ldquo;type&rdquo;: &ldquo;string&rdquo;, but isn&rsquo;t required. The linkId is as for other items, and then the text to display with the item. The logic comes from the enableWhen field. We have specified that for the question /93043-8/32624-9, if the answerCoding is equal (defined by the operator) to the code specified (LA46-8). Instead of answerCoding, you can also specify answer[x] (where x is any of the types that are allowed in answers). enableBehavior may be all or any. This specifies that the item should be shown only if all of the conditions specified are true or if any are true.</p><p>Question 3 and Question 4 in the survey are almost identical to question 1 in Figure 4.</p><p>Question 5 is simply a free-text field. In some versions of the survey they do seem to offer choices for this answer, but in the original, it is simply a free text. We have therefore chosen to represent it as follows:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;text&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;54899-0&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;What language are you most comfortable speaking?&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93043-8/54899-0&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;What language are you most comfortable speaking?&#34;</span>
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>So there was some discussion in our group about the best way to render Question 6. After discussion we decided that we think the best way to do it is to define it as a question with a integer response, but with a nested sub-item for if the user chooses not to answer the question. It looks like the following:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;integer&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;63512-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;How many family members, including yourself, do you currently live with?&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;extension&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;url&#34;</span>: <span style=color:#e6db74>&#34;http://hl7.org/fhir/StructureDefinition/questionnaire-unit&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;{#}&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/63512-8&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;How many family members, including yourself, do you currently live with?&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;boolean&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span></code></pre></div><p>Question 7 and Question 8 are the same format as multiple question above.</p><p>Question 9 has what appear to be two free text fields for one question. As I&rsquo;ve discovered, some of Questionnaire (like much of FHIR) seems to be the choice of the developers, coders, renderers, etc. We are going to try and keep this as generic as possible to be as broadly applicable as possible. Currently, we are just going to list it as a single. However, in the future we may look into pulling it as a reference from the Patient&rsquo;s address. (Also, yes, the incorrect grammar of the question bothers me too).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;56799-0&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;What address do you live at?&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;What address do you live at?&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0/street&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Street:&#34;</span>
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93042-0/56799-0/city_state_zip&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;City, State, Zipcode:&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>Questions 10-13 are all similar to questions we&rsquo;ve already discussed, so I won&rsquo;t belabor those points.</p><p>At first glance 14 appears complicated. It is slightly, but it is really just deeper nests of the kinds of questions that we&rsquo;ve already encountered. The group starts out similarly, coding, systems, text, linkId, etc. The first six items we&rsquo;ve seen similar versions before (Food, Utilities, Clothing, Child care, Medical, and Phone), and so I&rsquo;ve only included Phone below. The option for Other is also similar to how we&rsquo;ve done before, where there is display logic for a free-text box when this is chosen. Lastly, we&rsquo;ve included a boolean question, which we haven&rsquo;t used before. There could be a discussion about whether or not to include the formatting (should this also be displayed as a radio-button, or perhaps a check-box?). For now we&rsquo;re going to leave it to the renderer, but feel free to add the format as an extension to your survey if you feel it is appropriate.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;group&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;93031-3&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;In the past year, have you or any family members you live with been unable to get any of the following when it was really needed?&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ],
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;In the past year, have you or any family members you live with been unable to get any of the following when it was really needed?&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;item&#34;</span>: [
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30128-5&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Phone&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA30128-5&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Phone&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;answerOption&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;choice&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA46-8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Other&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;answerOption&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;Yes&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;valueCoding&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA32-8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;No&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;item&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;string&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#e6db74>&#34;false&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8/LA33-6&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;Please write&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;enableWhen&#34;</span>: [
+</span></span><span style=display:flex><span>            {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;answerCoding&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA33-6&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;question&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA46-8&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;operator&#34;</span>: <span style=color:#e6db74>&#34;=&#34;</span>
+</span></span><span style=display:flex><span>            }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;enableBehavior&#34;</span>: <span style=color:#e6db74>&#34;all&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ]
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;type&#34;</span>: <span style=color:#e6db74>&#34;boolean&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;code&#34;</span>: [
+</span></span><span style=display:flex><span>        {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;code&#34;</span>: <span style=color:#e6db74>&#34;LA30122-8&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;display&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;system&#34;</span>: <span style=color:#e6db74>&#34;http://loinc.org&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>        ],
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;required&#34;</span>: <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;linkId&#34;</span>: <span style=color:#e6db74>&#34;/93041-2/93031-3/LA30122-8&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;text&#34;</span>: <span style=color:#e6db74>&#34;I choose not to answer this question&#34;</span>
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>    ]
+</span></span><span style=display:flex><span>}<span style=color:#960050;background-color:#1e0010>,</span>
+</span></span></code></pre></div><p>Question 15 is similar to previous questions. Although please note that multiple answers are allowed, so we specified a check-box format.</p><p>Both of the Social and emotional health questions, as well as all questions from the Optional section are simple choice responses. I will note that currently for the final question, there is no known coding for the response &ldquo;I have not had a partner in the past year&rdquo;.</p><p>So there you have it. This was our process of creating the PRAPARE questionnaire in FHIR®. We hope you found it useful, and feedback is always welcome on how we can improve.</p></div></div></div></div></section><section id=call-to-action><div class=container><div class=row><div class=col-md-12><div class=block><h2 class="title wow fadeInDown" data-wow-delay=.3s data-wow-duration=500ms>Want to Learn More?</h1><a href=../../contact class="btn btn-default btn-contact wow fadeInDown" data-wow-delay=.7s data-wow-duration=500ms>Contact Us</a></div></div></div></div></section><footer id=footer><div class=container><div class="row content-justify-between"><p class=copyright>Website Content: Copyright
+<span><script>document.write((new Date).getFullYear())</script></span>by MayJuun. Contact us: <a href=mailto:info@mayjuun.com>info@mayjuun.com</a><br>Website Theme: Copyright 2020. Original design by <a href=http://www.themefisher.com target=_blank>Themefisher</a> under <a href=https://github.com/themefisher/timer-hugo/blob/master/LICENSE target=_blank>MIT license</a>, modified by MayJuun<br>FHIR® is a registered trademark of Health Level Seven International (HL7) and its use does not constitute an endorsement of products by HL7®<div class="col copyright"><a href=https://mayjuun.com/policies target=_self>Policies</a>
+~ <a href=https://mayjuun.com/policies/cookie-policy/ target=_self>Cookie Policy</a>
+~ <a href=https://mayjuun.com/policies/disclaimer/ target=_self>Disclaimer</a>
+~ <a href=https://mayjuun.com/policies/eula/ target=_self>EULA</a>
+~ <a href=https://mayjuun.com/policies/privacy-notice/ target=_self>Privacy Notice</a>
+~ <a href=https://mayjuun.com/policies/terms-and-conditions/ target=_self>Terms and Conditions</a></div></p></div></div></footer><script src=https://mayjuun.com/plugins/jQurey/jquery.min.js></script>
+<script src=https://mayjuun.com/plugins/form-validation/jquery.form.js></script>
+<script src=https://mayjuun.com/plugins/form-validation/jquery.validate.min.js></script>
+<script src=https://mayjuun.com/plugins/slick/slick.min.js></script>
+<script src=https://mayjuun.com/plugins/bootstrap/bootstrap.min.js></script>
+<script src=https://mayjuun.com/plugins/wow-js/wow.min.js></script>
+<script src=https://mayjuun.com/plugins/slider/slider.js></script>
+<script src=https://mayjuun.com/plugins/facncybox/jquery.fancybox.js></script>
+<script src=https://mayjuun.com/js/script.min.js></script>
+<script>(function(e,o,i,a,t,n,s){e.GoogleAnalyticsObject=t,e[t]=e[t]||function(){(e[t].q=e[t].q||[]).push(arguments)},e[t].l=1*new Date,n=o.createElement(i),s=o.getElementsByTagName(i)[0],n.async=1,n.src=a,s.parentNode.insertBefore(n,s)})(window,document,'script','//www.google-analytics.com/analytics.js','ga'),ga('create','UA-50100304-2','auto'),ga('send','pageview')</script></body></html>
